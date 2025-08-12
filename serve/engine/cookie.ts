@@ -42,4 +42,17 @@ export class CookieEngine {
         }
         return null;
     }
+
+    static deleteCookie = (name: string, req: Request, res: Response) => {
+        if(allowedCookies[name]){
+            if(req.signedCookies[name]){
+                res.clearCookie(name);
+            }
+            if(req.signedCookies[name + "_legacy"]){
+                res.clearCookie(name + "_legacy")
+            }
+            return true;
+        }
+        return false;
+    }
 }

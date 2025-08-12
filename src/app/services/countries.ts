@@ -1,6 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { countryCodes, countryCodesMap, countryFlagsMap } from '../../../serve/model/countries';
 import { UICountry } from '../model/uiCountry';
+import { Store } from './store';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class Countries {
 
   all = this.allCountries.asReadonly();
 
+  private store = inject(Store);
+  private storeKey = "country";
+
   private activeC = signal<UICountry>({ code: '', flag: '', name: '', isActive: true });
 
   activeCountry = this.activeC.asReadonly();
@@ -23,6 +27,7 @@ export class Countries {
   setActiveCountry(code: string) {
     code = code.toUpperCase();
     if (this.allCodes.includes(code)) {
+      // this.store.set(this.storeKey, code);
       this.activeC.set({
         code: code,
         flag: countryFlagsMap[code],
@@ -61,6 +66,7 @@ export class Countries {
     })).sort((a, b) => {
       return a.name.localeCompare(b.name);
     }));
+    // this.store.delete(this.storeKey);
   }
 
   allCodes = [...countryCodes];

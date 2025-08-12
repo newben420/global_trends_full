@@ -1,8 +1,8 @@
-<mat-sidenav-container class="h-100 bg-surf">
+<mat-sidenav-container class="h-100 bg-surfx">
     <mat-sidenav
         (click)="hideOnMoile()" class="rounded-0 {{windowWidth > widthBreakPoint ? '' : 'mobile sidenav-mobilexxx'}} overflow-x-hidden sidenav inner-side"
-        [style]="{width: windowWidth > widthBreakPoint ? '300px': 'calc(100vw - 100px)'}" (closed)="opened.set(false)"
-        [opened]="opened()" [mode]="windowWidth > widthBreakPoint ? 'side' : 'over'">
+        [style]="{width: windowWidth > widthBreakPoint ? '300px': 'calc(100vw - 100px)'}" (closed)="side.toggle(false)"
+        [opened]="side.shown()" [mode]="windowWidth > widthBreakPoint ? 'side' : 'over'">
         <aside class="w-100 overflow-hidden p-3">
             <div class="p-0 d-flex opacity-75 flex0row align-items-center justify-content-start mb-3">
                 <app-theme-switch class="me-2"></app-theme-switch>
@@ -37,7 +37,7 @@
         </aside>
     </mat-sidenav>
     <mat-toolbar class="bg-surf heading">
-        <button (click)="opened.set(!opened())" class="me-3 bg-transparent col-os shadow-none rounded-circle fs-5"
+        <button (click)="side.toggle()" class="me-3 bg-transparent col-os shadow-none rounded-circle fs-5"
             mat-mini-fab><mat-icon>menu</mat-icon> </button>
         <a href="/" id="icon" class="me-3"><img src="/img/icon_small.webp" alt="Logo"></a>
         <span>{{('DASH.TITLE' | translate)}}</span>

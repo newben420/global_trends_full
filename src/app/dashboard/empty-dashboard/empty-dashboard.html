@@ -1,1 +1,10 @@
-<p>empty-dashboard works!</p>
+<div class="container-fluid w-100 h-100 px-4 py-5 d-flex flex-column align-items-center justify-content-center">
+    <h1 class="display-5 mt-5 fw-light m-0 p-0 mb-3 text-center">{{'DASH.EMPTY.TITLE' | translate}}</h1>
+    <p class="m-0 p-0 lead text-center">{{'DASH.EMPTY.DESCRIPTION' | translate}}</p>
+    @if(!side.shown()){
+    <button (click)="side.toggle()" class="shadow-sm mt-3" matFab extended>
+        <i class="bi bi-globe-central-south-asia me-2"></i>
+        {{'DASH.EMPTY.CTA' | translate}}
+    </button>
+    }
+</div>

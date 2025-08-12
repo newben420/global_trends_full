@@ -16,6 +16,11 @@
         "SEARCH": "Search country",
         "COUNTRY": {
             "TITLE": "{{country}}'s Trends"
+        },
+        "EMPTY": {
+            "TITLE": "Global Trends in Real-Time — Across Every Country",
+            "DESCRIPTION": "Every country's ranked, real-time trending keywords from its news and events. Take a pick.",
+            "CTA": "Show Available Countries"
         }
     }
 }

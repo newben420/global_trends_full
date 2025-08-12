@@ -1,4 +1,5 @@
 export const allowedCookies: Record<string, RegExp> = {
     "theme": /^(dark)|(light)$/,
-    "locale": /^[a-z]{2}$/
+    "locale": /^[a-z]{2}$/,
+    // "country": /^[a-zA-Z]{2}$/,
 }

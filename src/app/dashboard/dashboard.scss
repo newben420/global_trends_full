@@ -36,3 +36,12 @@ textarea{
 .cout:hover{
     transform: scale(1.1);
 }
+
+.bg-surfx{
+    background-color: var(--mat-sys-surface);
+    background-image: url('/img/connected_world.webp');
+    background-size: 1000px auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}

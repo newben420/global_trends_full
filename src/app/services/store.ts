@@ -100,4 +100,15 @@ export class Store {
       resolve(done[0] || done[1]);
     })
   }
+
+  delete(key: string) {
+    return new Promise<boolean>(async (resolve, reject) => {
+      if (this.isStorage()) {
+        localStorage.removeItem(key);
+      }
+      (await this.server.postAsync("cookie/delete", {name: key}));
+      resolve(true);
+      return;
+    });
+  }
 }

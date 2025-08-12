@@ -32,3 +32,19 @@ api.post("/cookie", (req, res) => {
         res.status(400).json(GRes.err("SERVER.WRONG_REQUEST", { tr: true }));
     }
 });
+
+api.post("/cookie/delete", (req, res) => {
+    const {name} = req.body;
+    if(name){
+        const done = CookieEngine.deleteCookie(name, req, res);
+        if(done){
+            res.json(GRes.succ());
+        }
+        else{
+            res.status(400).json(GRes.err("SERVER.WRONG_REQUEST", { tr: true }));
+        }
+    }
+    else{
+        res.status(400).json(GRes.err("SERVER.WRONG_REQUEST", { tr: true }));
+    }
+});

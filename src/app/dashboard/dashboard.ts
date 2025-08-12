@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { RouterOutlet } from '@angular/router';
 import { Countries } from '../services/countries';
+import { Dashside } from '../services/dashside';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,6 @@ import { Countries } from '../services/countries';
   styleUrl: './dashboard.scss'
 })
 export class Dashboard {
-  opened = signal<boolean>(false);
   windowWidth: number = 0;
   widthBreakPoint: number = 768;
   subs: Record<string, Subscription> = {};
@@ -39,18 +39,19 @@ export class Dashboard {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     public countService: Countries,
+    public side: Dashside,
   ) {
 
   }
 
   hideOnMoile(){
-    if(this.windowWidth < this.widthBreakPoint) this.opened.set(false);
+    if(this.windowWidth < this.widthBreakPoint) this.side.toggle(false);
   }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.windowWidth = window.innerWidth;
-      this.opened.set(this.windowWidth > this.widthBreakPoint);
+      this.side.toggle(this.windowWidth > this.widthBreakPoint);
     }
   }
 

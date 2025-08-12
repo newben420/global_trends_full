@@ -10,7 +10,11 @@ import { join } from 'node:path';
 import { Log } from './../serve/lib/log';
 import { startEngine, stopEngine } from './../serve/engine/terminal';
 import { Site } from './../serve/site';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, REQUEST, RESPONSE_INIT as RESPONSE } from '@angular/core';
+import bodyParser from 'body-parser';
+import cookieParser from "cookie-parser";
+import { CookieEngine } from '../serve/engine/cookie';
+import { allowedCookies } from '../serve/model/allowedCookies';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -56,6 +60,21 @@ process.on('unhandledRejection', async (err, promise) => {
   }
 });
 
+app.disable("x-powered-by");
+app.disable('etag');
+
+app.use(bodyParser.json({ limit: "35mb" }));
+
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+        limit: "35mb",
+        parameterLimit: 50000,
+    })
+);
+
+app.use(cookieParser(Site.AUTH_COOKIE_SECRET, CookieEngine.cookieOpts()));
+
 app.use("/api", api);
 
 /**
@@ -73,8 +92,11 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
+  const cookies = Object.fromEntries(Object.keys(allowedCookies).map(x => ([x, CookieEngine.getCookie(x, req)])));
   angularApp
-    .handle(req)
+    .handle(req, {
+      cookies,
+    })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),
     )

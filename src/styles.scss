@@ -1,1 +1,238 @@
-/* You can add global styles to this file, and also import other style files */
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+/* Importing Bootstrap SCSS file. */
+@use 'bootstrap/scss/bootstrap';
+
+// $red-palette
+// $green-palette
+// $blue-palette
+// $yellow-palette
+// $cyan-palette
+// $magenta-palette
+// $orange-palette
+// $chartreuse-palette
+// $spring-green-palette
+// $azure-palette
+// $violet-palette
+// $rose-palette
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html {
+  color-scheme: light;
+  @include mat.theme((color: (primary: mat.$azure-palette,
+      ),
+      typography: Roboto,
+      density: -1,
+    ));
+}
+
+body {
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+body.darkMode {
+  color-scheme: dark;
+  @include mat.theme((color: (primary: mat.$azure-palette,
+      ),
+    ),
+    // $overrides: ("surface": #18191b,
+    // )
+  );
+}
+
+body:not(.darkMode) mat-sidenav {
+  @include mat.theme-overrides((background: #d5dfea));
+}
+
+.inner-side {
+  background: rgba($color: #ffffff, $alpha: 1);
+}
+
+body.darkMode .inner-side {
+  background: rgba($color: #7c8894, $alpha: 0.2);
+}
+
+.lh1 {
+  line-height: 1 !important;
+}
+
+
+.mat-mdc-snack-bar-label,
+.mat-mdc-snackbar-surface {
+  padding: 0px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-width: 0px !important;
+}
+
+.col-pri {
+  color: var(--mat-sys-primary) !important;
+}
+
+.bg-pri {
+  background: var(--mat-sys-primary) !important;
+}
+
+.col-surf {
+  color: var(--mat-sys-surface) !important;
+}
+
+.col-os {
+  color: var(--mat-sys-on-surface) !important;
+}
+
+.col-error {
+  color: var(--mat-sys-error) !important;
+}
+
+.bg-surf {
+  background: var(--mat-sys-surface) !important;
+}
+
+.bg-os {
+  background: var(--mat-sys-on-surface) !important;
+}
+
+.bg-bg {
+  background: #e0e7ee !important;
+}
+
+.mat-mdc-tab-label-container {
+  border: none !important;
+  background-color: #e0e7ee !important;
+}
+
+body.darkMode {
+  .bg-bg {
+      background: #191b1e !important;
+  }
+
+  .mat-mdc-tab-label-container {
+      background-color: #191b1e !important;
+  }
+}
+
+.tiny-text {
+  font: var(--mat-sys-body-small);
+}
+
+.medium-text {
+  font: var(--mat-sys-body-medium);
+}
+
+.cp {
+  cursor: pointer;
+}
+
+.shadowx {
+  box-shadow: none !important;
+}
+
+/* scrollbar classes */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 0px;
+}
+
+::-moz-scrollbar {
+  width: 5px;
+  height: 0px;
+}
+
+::-o-scrollbar {
+  width: 5px;
+  height: 0px;
+}
+
+.horizon::-webkit-scrollbar {
+  height: 5px !important;
+}
+
+.horizon::-moz-scrollbar {
+  height: 5px !important;
+}
+
+.horizon::-o-scrollbar {
+  height: 5px !important;
+}
+
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(138, 138, 138, 0.7);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 139, 139, 0.9);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mat-drawer-inner-container {
+  overflow-y: hidden !important;
+  transition: all 100ms ease;
+}
+
+.sidenav-mobilexxx .mat-drawer-inner-container {
+  overflow-y: auto !important;
+  transition: all 100ms ease;
+}
+
+.mat-drawer-inner-container:hover {
+  overflow-y: auto !important;
+}
+
+.borderx {
+  border-color: rgba($color: #838c95, $alpha: 0.2) !important;
+}
+
+
+.mytable tr:nth-child(odd) {
+  background: rgba($color: #81878d, $alpha: 0.08);
+  border: none !important;
+  /* White background for even rows */
+}
+
+.mytable tr.heading {
+  background: transparent;
+}
+
+.mytable td,
+.mytable th {
+  border: none !important;
+}
+
+.mytable th {
+  color: var(--mat-sys-primary);
+}
+
+.mat-mdc-paginator-page-size-label {
+  display: none !important;
+}

@@ -1,0 +1,14 @@
+{
+    "SERVER": {
+        "WRONG_REQUEST": "There is something wrong with your request.",
+        "UNKNOWN_RESPONSE": "An unknown response was receivedfrom the server.",
+        "NO_CONNECTION": "No connection could be established with the server.",
+        "": ""
+    },
+    "NO": "No",
+    "YES": "Yes",
+    "INP_ERR": "There is something wrong with your input",
+    "CANCEL": "Cancel",
+    "SUBMIT": "Submit",
+    "CHANGE_PREF_LANGUAGE": "Choose Preferred Language"
+}

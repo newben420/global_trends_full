@@ -18,7 +18,19 @@ export class Site {
     static MAX_ALLOWED_FLOG_LOG_WEIGHT: number = parseInt(process.env["MAX_ALLOWED_FLOG_LOG_WEIGHT"] || "0") ?? 5;
     
     static MAIN_INTERVAL_MS: number = parseInt(process.env["MAIN_INTERVAL_MS"] || "0") || 5;
+    static MAIN_USE = (process.env["MAIN_USE"] || "").toLowerCase() == "true";
+
 
     static KEYWORD_SOFT_EXPIRE_MS: number = parseInt(process.env["KEYWORD_SOFT_EXPIRE_MS"] || "0") || 3600000;
     static KEYWORD_HARD_EXPIRE_MS: number = parseInt(process.env["KEYWORD_HARD_EXPIRE_MS"] || "0") || 86400000;
+
+    static AUTH_COOKIE_SECRET: string = process.env["AUTH_COOKIE_SECRET"] || "irdh4efurwgi";
+    static AUTH_PW_HASH_SALT: string = process.env["AUTH_PW_HASH_SALT"] || "defhruw4ijeofk33g";
+    static AUTH_PW_HASH_CRYPT: string = process.env["AUTH_PW_HASH_CRYPT"] || "de34IH58Y5fhruw4ijeofk33g";
+    static AUTH_SESSION_DURATION_MS: number = parseInt(process.env["AUTH_SESSION_DURATION_MS"] || "0") || 7200000;
+    static AUTH_SESSION_RENEW_DURATION_MS: number = parseInt(process.env["AUTH_SESSION_RENEW_DURATION_MS"] || "0") || 720000;
+    static AUTH_COOKIE_DURATION_MS: number = parseInt(process.env["AUTH_COOKIE_DURATION_MS"] || "0") || 86400000;
+    static AUTH_JWT_PREFIX: string = process.env["AUTH_JWT_PREFIX"] || "ewuhireotgt";
+    static AUTH_JWT_ISSUER: string = process.env["AUTH_JWT_ISSUER"] || "bogballs";
+    static AUTH_JWT_COOKIE_NAME: string = process.env["AUTH_JWT_COOKIE_NAME"] || "sess";
 }

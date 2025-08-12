@@ -25,9 +25,11 @@ export class MainEngine {
         for (const cc of countryCodes) {
             MainEngine.trends[cc] = [];
         }
-        setTimeout(() => {
-            MainEngine.run();
-        }, 1000);
+        if(Site.MAIN_USE){
+            setTimeout(() => {
+                MainEngine.run();
+            }, 1000);
+        }
         resolve(true);
     });
 
@@ -276,7 +278,6 @@ export class MainEngine {
                     Log.flow([SLUG, `Iteration`, `Success`, `Processed GKG table.`], WEIGHT);
                     MainEngine.mergeUpdatedData(newData);
                     Log.flow([SLUG, `Iteration`, `Success`, `Merged GKG table.`], WEIGHT);
-                    console.log(MainEngine.trends);
                 }
                 else {
                     Log.flow([SLUG, `Iteration`, `Error`, `Could not get GKG table.`], WEIGHT);

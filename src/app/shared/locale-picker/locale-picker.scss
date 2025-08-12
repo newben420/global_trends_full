@@ -1,0 +1,18 @@
+.cont {
+    top: 0px;
+    z-index: 10000;
+    left: 0px;
+}
+
+.backdrop {
+    background: rgba($color: #000000, $alpha: 0.5);
+}
+
+.card {
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+}
+
+.surround {
+    max-width: 700px;
+}

@@ -1,0 +1,8 @@
+<button (click)="setTheme()" class="rounded-circle shadow-none overflow-hidden col-os bg-transparent" mat-mini-fab>
+    @if(theme.isDark()){
+        <mat-icon class="m-0">dark_mode</mat-icon>
+    }
+    @else {
+        <mat-icon class="m-0">light_mode</mat-icon>
+    }
+</button>

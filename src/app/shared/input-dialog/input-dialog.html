@@ -1,0 +1,24 @@
+<h1 class="my-0 py-2" mat-dialog-title>{{ (data.title || "") | translate }}</h1>
+<mat-dialog-content class="h-auto">
+    <mat-form-field [appearance]="'outline'" class="w-100 py-2 overflow-visible">
+        @if(data.label){
+        <mat-label>{{data.label | translate}}</mat-label>
+        }
+        <input matInput [required]="data.required || false" [pattern]="data.pattern || pattern.generalEmpty"
+            [min]="data.min || null" [max]="data.max|| null" [maxlength]="data.maxLength || null"
+            [minlength]="data.minLength || null" name="inp" #inp="ngModel" [type]="data.type || 'text'"
+            [(ngModel)]="val" />
+        @if(data.hint){
+        <mat-hint><span>{{data.hint | translate}}</span></mat-hint>
+        }
+        @if (inp.invalid && inp.dirty){
+        <mat-error>{{ (data.error || 'INP_ERR') | translate}}</mat-error>
+        }
+    </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions class="mt-2">
+    <button mat-button [mat-dialog-close]="gres.err()">{{ "CANCEL" | translate}}</button>
+    <button [disabled]="inp.invalid || initVal === val" mat-flat-button [mat-dialog-close]="gres.succ(val)">{{ "SUBMIT"
+        |
+        translate}}</button>
+</div>

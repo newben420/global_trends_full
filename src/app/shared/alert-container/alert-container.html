@@ -1,0 +1,15 @@
+<div (click)="close()"
+    class="d-flex cp {{data.type == 'alert' ? 'bg-os col-surf flex-column align-items-center justify-content-start' : 'flex-row align-items-center justify-content-start'}} bg-{{data.type}} shadow-sm rounded-5 p-3 {{data.type == 'warning' ? 'text-dark' : 'text-light'}}">
+    @if(data.type != 'alert'){
+    <span matSnackBarLabel class="mx-2 me-3 fs-6">
+        <mat-icon>{{ data.type.replace("danger", "error").replace("success", "check_circle") }}</mat-icon>
+    </span>
+    }
+    @else {
+    @if(((data.opts || {}).tr || {}).title || ''){
+    <span class="sm mb-2"><strong>{{(((data.opts || {}).tr || {}).title || '') | titlecase}}</strong></span>
+    <div class="hr bg-surf w-100 opacity-25 mb-3"></div>
+    }
+    }
+    <span [innerHTML]="data.message" class="fs-6"></span>
+</div>

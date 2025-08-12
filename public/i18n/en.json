@@ -10,5 +10,12 @@
     "INP_ERR": "There is something wrong with your input",
     "CANCEL": "Cancel",
     "SUBMIT": "Submit",
-    "CHANGE_PREF_LANGUAGE": "Choose Preferred Language"
+    "CHANGE_PREF_LANGUAGE": "Choose Preferred Language",
+    "DASH": {
+        "TITLE": "Global Trends",
+        "SEARCH": "Search country",
+        "COUNTRY": {
+            "TITLE": "{{country}}'s Trends"
+        }
+    }
 }

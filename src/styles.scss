@@ -59,17 +59,34 @@ body:not(.darkMode) mat-sidenav {
 }
 
 .inner-side {
-  background: rgba($color: #ffffff, $alpha: 1);
+  background: rgba($color: #e4e2ef, $alpha: 1) !important;
 }
 
 body.darkMode .inner-side {
-  background: rgba($color: #7c8894, $alpha: 0.2);
+  background: rgba($color: #191a1f, $alpha: 1) !important;
 }
 
 .lh1 {
   line-height: 1 !important;
 }
 
+.cp {
+  cursor: pointer !important;
+}
+
+.custom-fill,
+.custom-fill:hover,
+.custom-fill .mat-mdc-form-field-flex,
+.custom-fill .mat-mdc-form-field-flex:hover,
+.custom-fill .mat-mdc-text-field-wrapper,
+.custom-fill .mat-mdc-text-field-wrapper:hover,
+.custom-fill * {
+  background-color: transparent !important;
+}
+
+.custom-fill .mdc-line-ripple {
+  opacity: 0.2 !important;
+}
 
 .mat-mdc-snack-bar-label,
 .mat-mdc-snackbar-surface {
@@ -118,11 +135,11 @@ body.darkMode .inner-side {
 
 body.darkMode {
   .bg-bg {
-      background: #191b1e !important;
+    background: #191b1e !important;
   }
 
   .mat-mdc-tab-label-container {
-      background-color: #191b1e !important;
+    background-color: #191b1e !important;
   }
 }
 

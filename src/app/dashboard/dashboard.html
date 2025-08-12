@@ -1,1 +1,55 @@
-<p>dashboard works!</p>
+<mat-sidenav-container class="h-100 bg-surf">
+    <mat-sidenav
+        (click)="hideOnMoile()" class="rounded-0 {{windowWidth > widthBreakPoint ? '' : 'mobile sidenav-mobilexxx'}} overflow-x-hidden sidenav inner-side"
+        [style]="{width: windowWidth > widthBreakPoint ? '300px': 'calc(100vw - 100px)'}" (closed)="opened.set(false)"
+        [opened]="opened()" [mode]="windowWidth > widthBreakPoint ? 'side' : 'over'">
+        <aside class="w-100 overflow-hidden p-3">
+            <div class="p-0 d-flex opacity-75 flex0row align-items-center justify-content-start mb-3">
+                <app-theme-switch class="me-2"></app-theme-switch>
+                <app-locale-switch></app-locale-switch>
+            </div>
+            <div class="search">
+                <mat-form-field appearance="fill" class="w-100 custom-fill">
+                    <span matPrefix>
+                        <i class="bi bi-search px-2 fs-6 col-os"></i>
+                    </span>
+                    <div class="d-flex flex-row align-items-center justify-content-end px-3" matSuffix>
+                        @if(searchKeyword()){
+                        <span (click)="searchKeyword.set('')" class="col-error cp">
+                            <i class="bi bi-x-lg"></i>
+                        </span>
+                        }
+                    </div>
+                    <input id="search" name="search" matInput maxlength="100" [ngModel]="searchKeyword()"
+                        [placeholder]="('DASH.SEARCH' | translate)" (ngModelChange)="searchKeyword.set($event)" />
+                </mat-form-field>
+            </div>
+            <nav>
+                <mat-list role="list">
+                    @for(country of countries(); track country.code; let i = $index){
+                    <a class="cp cout rounded {{country.isActive ? 'bg-surf' : ''}}" [activated]="country.isActive || false" href="/live/{{country.code | lowercase}}" mat-list-item
+                        role="listitem">
+                        <span [innerHTML]="country.flag" class="me-2"></span> {{country.name}}
+                    </a>
+                    }
+                </mat-list>
+            </nav>
+        </aside>
+    </mat-sidenav>
+    <mat-toolbar class="bg-surf heading">
+        <button (click)="opened.set(!opened())" class="me-3 bg-transparent col-os shadow-none rounded-circle fs-5"
+            mat-mini-fab><mat-icon>menu</mat-icon> </button>
+        <a href="/" id="icon" class="me-3"><img src="/img/icon_small.webp" alt="Logo"></a>
+        <span>{{('DASH.TITLE' | translate)}}</span>
+        <span class="spacer"></span>
+        <button
+            class="rounded-circle shadow-none d-flex flex-row align-items-center justify-content-center overflow-hidden col-os bg-transparent me-2 border-0 p-2">
+            <i
+                class="bi bi-circle-fill tiny-text lh1 {{connected() ? 'text-success' : 'text-secondary opacity-50'}}"></i>
+            <!-- <mat-icon>home</mat-icon> -->
+        </button>
+    </mat-toolbar>
+    <main class="container-fluid">
+        <router-outlet></router-outlet>
+    </main>
+</mat-sidenav-container>

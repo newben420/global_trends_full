@@ -28,3 +28,8 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Progress Screenshots
+
+<p align="center">
+  <img src="screenshots/screen1.png" style="max-width: 1000px;width: 100%" />
+</p>

@@ -96,6 +96,7 @@ app.use((req, res, next) => {
   angularApp
     .handle(req, {
       cookies,
+      brand: Site.BRAND,
     })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),

@@ -1,4 +1,4 @@
-import { afterNextRender, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SharedModule } from './shared/shared-module';
 import { Subscription } from 'rxjs';
 import { Preloader } from './services/preloader';
@@ -24,9 +24,6 @@ export class App {
     private router: Router,
   ) {
 
-    afterNextRender(() => {
-
-    });
   }
 
   ngOnInit() {

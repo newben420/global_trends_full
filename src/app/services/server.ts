@@ -4,7 +4,6 @@ import { Locale } from './locale';
 import { ResParamFx } from './../../../serve/lib/functions';
 import { Res, GRes } from './../../../serve/lib/res';
 import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -134,7 +133,8 @@ export class Server {
           return;
         },
         complete: () => {
-          s.unsubscribe();
+          if (s)
+            s.unsubscribe();
           return;
         }
       });

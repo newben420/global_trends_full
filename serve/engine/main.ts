@@ -25,7 +25,7 @@ export class MainEngine {
         for (const cc of countryCodes) {
             MainEngine.trends[cc] = [];
         }
-        if(Site.MAIN_USE){
+        if(Site.MAIN_USE()){
             setTimeout(() => {
                 MainEngine.run();
             }, 1000);
@@ -38,6 +38,12 @@ export class MainEngine {
     });
 
     static getTrends = () => MainEngine.trends;
+    static getTrendsByCountry = (code: string): KeywordEntry[] | null => {
+        if(MainEngine.trends[code]){
+            return MainEngine.trends[code].slice(0, Site.TRENDS_TOP_NUMBER());
+        }
+        return null
+    };
 
     private static getLatestGKGURL = () => new Promise<{
         gkg: null | string,
@@ -225,12 +231,12 @@ export class MainEngine {
                     existing.lastUpdated = now;
                 }
                 else{
-                    oldList.push({keyword: kw, categories: category, tone, count, lastUpdated: now, delta: 0});
+                    oldList.push({keyword: kw, categories: category, tone, count, lastUpdated: now + 1, delta: 0, firstUpdated: now});
                 }
             }
 
             // Soft expire
-            const filtered = oldList.filter(e => now - e.lastUpdated <= Site.KEYWORD_SOFT_EXPIRE_MS);
+            const filtered = oldList.filter(e => now - e.lastUpdated <= Site.KEYWORD_SOFT_EXPIRE_MS());
 
             // Sort & delta
             filtered.sort((a, b) => b.count - a.count);
@@ -247,7 +253,7 @@ export class MainEngine {
         for(const country of Object.keys(MainEngine.trends) as CountryCode[]){
             if(!(country in newData)){
                 MainEngine.trends[country] = MainEngine.trends[country].filter(
-                    e => now - e.lastUpdated <= Site.KEYWORD_HARD_EXPIRE_MS
+                    e => now - e.lastUpdated <= Site.KEYWORD_HARD_EXPIRE_MS()
                 );
             }
         }
@@ -290,14 +296,14 @@ export class MainEngine {
         // END MAIN BODY
         Log.flow([SLUG, `Iteration`, `Concluded.`], WEIGHT);
         const duration = Date.now() - start;
-        if (duration >= Site.MAIN_INTERVAL_MS) {
+        if (duration >= Site.MAIN_INTERVAL_MS()) {
             MainEngine.run();
         }
         else {
             setTimeout(() => {
                 MainEngine.run();
-            }, (Site.MAIN_INTERVAL_MS - duration));
-            Log.flow([SLUG, `Iteration`, `Scheduled for ${getTimeElapsed(0, (Site.MAIN_INTERVAL_MS - duration))}.`], WEIGHT);
+            }, (Site.MAIN_INTERVAL_MS() - duration));
+            Log.flow([SLUG, `Iteration`, `Scheduled for ${getTimeElapsed(0, (Site.MAIN_INTERVAL_MS() - duration))}.`], WEIGHT);
         }
     }
 }

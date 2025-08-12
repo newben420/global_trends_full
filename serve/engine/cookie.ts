@@ -6,7 +6,7 @@ export class CookieEngine {
     static cookieOpts = (): any => {
         return {
             httpOnly: true,
-            secure: Site.PRODUCTION ? true : false,
+            secure: Site.PRODUCTION() ? true : false,
             sameSite: 'none',
             signed: true
         }
@@ -16,7 +16,7 @@ export class CookieEngine {
         return (new Date(Number(new Date()) + Number(durationMS)));
     }
 
-    static setCookie = (name: string, value: string, res: Response, duration: number = Site.AUTH_COOKIE_DURATION_MS) => {
+    static setCookie = (name: string, value: string, res: Response, duration: number = Site.AUTH_COOKIE_DURATION_MS()) => {
         if (allowedCookies[name] && allowedCookies[name].test(value)) {
             let cookOpts = CookieEngine.cookieOpts();
             const exp = duration ? CookieEngine.cookieExp(duration) : new Date(2147483647000);

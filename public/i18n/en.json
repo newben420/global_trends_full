@@ -3,7 +3,7 @@
         "WRONG_REQUEST": "There is something wrong with your request.",
         "UNKNOWN_RESPONSE": "An unknown response was receivedfrom the server.",
         "NO_CONNECTION": "No connection could be established with the server.",
-        "": ""
+        "NOT_FOUND": "Requested resouce does not exist."
     },
     "NO": "No",
     "YES": "Yes",
@@ -15,7 +15,8 @@
         "TITLE": "Global Trends",
         "SEARCH": "Search country",
         "COUNTRY": {
-            "TITLE": "{{country}}'s Trends"
+            "TITLE": "{{country}}'s Top {{number}} Trending Keywords",
+            "NO_DATA": "Sorry! No trend data available for {{country}} at this moment. Stay on the page for updates or check back soon."
         },
         "EMPTY": {
             "TITLE": "Global Trends in Real-Time — Across Every Country",

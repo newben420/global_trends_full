@@ -18,7 +18,7 @@ import { allowedCookies } from '../serve/model/allowedCookies';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
-if(Site.PRODUCTION){
+if(Site.PRODUCTION()){
   enableProdMode();
 }
 
@@ -44,7 +44,7 @@ process.on('SIGTERM', async () => {
 process.on('uncaughtException', async (err) => {
   Log.dev('Process > Unhandled exception caught.');
   console.log(err);
-  if (Site.EXIT_ON_UNCAUGHT_EXCEPTION) {
+  if (Site.EXIT_ON_UNCAUGHT_EXCEPTION()) {
     const l = await stopEngine();
     process.exit(0);
   }
@@ -54,7 +54,7 @@ process.on('unhandledRejection', async (err, promise) => {
   Log.dev('Process > Unhandled rejection caught.');
   console.log("Promise:", promise);
   console.log("Reason:", err);
-  if (Site.EXIT_ON_UNHANDLED_REJECTION) {
+  if (Site.EXIT_ON_UNHANDLED_REJECTION()) {
     const l = await stopEngine();
     process.exit(0);
   }
@@ -73,7 +73,7 @@ app.use(
     })
 );
 
-app.use(cookieParser(Site.AUTH_COOKIE_SECRET, CookieEngine.cookieOpts()));
+app.use(cookieParser(Site.AUTH_COOKIE_SECRET(), CookieEngine.cookieOpts()));
 
 app.use("/api", api);
 
@@ -96,7 +96,8 @@ app.use((req, res, next) => {
   angularApp
     .handle(req, {
       cookies,
-      brand: Site.BRAND,
+      brand: Site.BRAND(),
+      top: Site.TRENDS_TOP_NUMBER(),
     })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),
@@ -104,13 +105,13 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
-Log.flow([Site.TITLE, 'Attempting to start engines.'], 0);
+Log.flow([Site.TITLE(), 'Attempting to start engines.'], 0);
 startEngine().then(r => {
   if (r) {
-    Log.flow([Site.TITLE, 'Sucessfully started all engines.'], 0);
+    Log.flow([Site.TITLE(), 'Sucessfully started all engines.'], 0);
   }
   else {
-    Log.flow([Site.TITLE, 'Failed to start all engines.'], 0);
+    Log.flow([Site.TITLE(), 'Failed to start all engines.'], 0);
     process.exit(0);
   }
 });
@@ -120,11 +121,11 @@ startEngine().then(r => {
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */
 if (isMainModule(import.meta.url)) {
-  app.listen(Site.PORT, (error) => {
+  app.listen(Site.PORT(), (error) => {
     if (error) {
       throw error;
     }
-    Log.flow([Site.TITLE, `Running at http://127.0.0.1:${Site.PORT}`], 0);
+    Log.flow([Site.TITLE(), `Running at http://127.0.0.1:${Site.PORT()}`], 0);
   });
 }
 

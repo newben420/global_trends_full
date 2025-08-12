@@ -230,15 +230,20 @@ body.darkMode {
   border-color: rgba($color: #838c95, $alpha: 0.2) !important;
 }
 
+.mytable{
+  background-color: transparent !important;
+}
 
 .mytable tr:nth-child(odd) {
-  background: rgba($color: #81878d, $alpha: 0.08);
+  background: rgba(rgb(125, 125, 125), $alpha: 0.1) !important;
   border: none !important;
   /* White background for even rows */
 }
 
+
+
 .mytable tr.heading {
-  background: transparent;
+  background: transparent !important;
 }
 
 .mytable td,

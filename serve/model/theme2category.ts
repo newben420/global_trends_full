@@ -16,6 +16,7 @@ export interface KeywordEntry {
     categories: CategorySlug[];
     tone: number;
     lastUpdated: number;
+    firstUpdated: number;
     count: number;
     delta: number;
 }

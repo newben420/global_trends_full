@@ -48,3 +48,14 @@ api.post("/cookie/delete", (req, res) => {
         res.status(400).json(GRes.err("SERVER.WRONG_REQUEST", { tr: true }));
     }
 });
+
+api.get("/trends/:code", (req, res) => {
+    const code= (req.params.code || '').toUpperCase();
+    const trends = MainEngine.getTrendsByCountry(code);
+    if(trends){
+        res.json(GRes.succ(trends));
+    }
+    else{
+        res.sendStatus(404).json(GRes.err("SERVER.NOT_FOUND", { tr: true }));
+    }
+});

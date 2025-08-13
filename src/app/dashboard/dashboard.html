@@ -39,7 +39,7 @@
     <mat-toolbar class="bg-surf heading">
         <button (click)="side.toggle()" class="me-3 bg-transparent col-os shadow-none rounded-circle fs-5"
             mat-mini-fab><mat-icon>menu</mat-icon> </button>
-        <a href="/" id="icon" class="me-3"><img src="/img/icon_small.webp" alt="Logo"></a>
+        <a [routerLink]="'/'" id="icon" class="me-3"><img src="/img/icon_small.webp" alt="Logo"></a>
         <span>{{('DASH.TITLE' | translate)}}</span>
         <span class="spacer"></span>
         <button

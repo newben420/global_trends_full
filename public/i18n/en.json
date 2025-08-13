@@ -12,6 +12,17 @@
     "SUBMIT": "Submit",
     "AGO": "{{time}} ago",
     "CHANGE_PREF_LANGUAGE": "Choose Preferred Language",
+    "HOME": {
+        "NAV": {
+            "LIVE": "Live Trends"
+        },
+        "HERO": {
+            "TITLE": "Ranked Real-Time Global News Trends, Sentiments & Insights— Across Every Country",
+            "DESCRIPTION": "Discover what’s truly trending worldwide, how people feel about it, and where it’s happening — all in one intuitive platform.",
+            "CTA1": "Explore Live Trends",
+            "CTA2": "Get Early API Access"
+        }
+    },
     "DASH": {
         "TITLE": "Global Trends",
         "SEARCH": "Search country",

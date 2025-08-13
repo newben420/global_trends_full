@@ -1,0 +1,12 @@
+@keyframes blink {
+    0% {opacity: 1;}
+    49% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+i{
+    font-size: 0.7rem;
+    line-height: 1;
+    animation: blink 1s infinite linear;
+}

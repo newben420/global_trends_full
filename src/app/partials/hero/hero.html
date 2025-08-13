@@ -1,0 +1,22 @@
+<section class="hero">
+    <div class="inner px-3 px-md-5 d-flex flex-column align-items-center justify-content-center">
+        <h1 class="m-0 p-0 px-md-3 w-100 text-center display-5 mb-3 fw-bold">{{ 'HOME.HERO.TITLE' | translate }}</h1>
+        <p class="m-0 p-0 px-md-3 w-100 mb-4 text-center lead fs-6 fw-normal">{{ 'HOME.HERO.DESCRIPTION' | translate }}</p>
+        <div class="w-100 px-md-3 d-flex flex-row align-items-center justify-content-center mb-5 flex-wrap">
+            <a matButton="filled" class="rounded shadowx me-3" [routerLink]="'/live'"><app-blinker /> {{ 'HOME.HERO.CTA1' | translate
+                }}</a>
+            <button matButton="tonal" class="rounded shadowx">{{ 'HOME.HERO.CTA2' | translate }}</button>
+        </div>
+    </div>
+
+    <div class="demo w-100 mx-auto px-3">
+        <div class="innie w-100">
+            @if(theme.isDark()){
+                <img loading="lazy" src="/img/ui_dark.png" alt="UI">
+                }
+                @else{
+                <img loading="lazy" src="/img/ui_light.png" alt="UI">
+                }
+        </div>
+    </div>
+</section>

@@ -1,3 +1,4 @@
+import { generateSitemap } from './../serve/lib/sitemap_gen';
 import { SocketEngine } from './../serve/engine/socket';
 import { api } from './../serve/api';
 import {
@@ -86,6 +87,8 @@ app.use(
 app.use(cookieParser(Site.AUTH_COOKIE_SECRET(), CookieEngine.cookieOpts()));
 
 app.use("/api", api);
+
+app.get("/sitemap.xml", generateSitemap)
 
 /**
  * Serve static files from /browser

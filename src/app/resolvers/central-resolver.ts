@@ -4,11 +4,13 @@ import { Store } from './../services/store';
 import { Theme } from './../services/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { LOCALES } from './../locales';
+import { Locale } from '../services/locale';
 
 export const centralResolver: ResolveFn<boolean> = async (route, state) => {
   const store = inject(Store);
   const theme = inject(Theme);
   const translate = inject(TranslateService);
+  const locale = inject(Locale);
 
   theme.loadSet();
   translate.addLangs(LOCALES);
@@ -16,8 +18,11 @@ export const centralResolver: ResolveFn<boolean> = async (route, state) => {
   const loc = await store.get('locale');
   if (loc && translate.getLangs().includes(loc)) {
     translate.use(loc);
+    locale.updateLocale(loc);
+
   } else {
     translate.use(LOCALES[0]);
+    locale.updateLocale();
   }
 
   return true;

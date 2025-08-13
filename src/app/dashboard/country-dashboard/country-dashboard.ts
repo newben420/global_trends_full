@@ -9,6 +9,8 @@ import { getDateTime2, getTimeElapsed } from '../../../../serve/lib/date_time';
 import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
 import { Connected } from '../../services/connected';
+import { Locale } from '../../services/locale';
+import { SEO } from '../../services/seo';
 
 @Component({
   selector: 'app-country-dashboard',
@@ -40,9 +42,12 @@ export class CountryDashboard {
   private serverTimeKey = makeStateKey<number>('server_time_ts');
   private topKey = makeStateKey<number>('top_ts');
   private keywordsKey = makeStateKey<KeywordEntry[]>('keywords_ts');
+  metadata = signal<any>({});
+  private metaKey = makeStateKey<any>('meta_ts');
   private navEff = effect(() => {
     const c = this.ct.activeCountry();
     this.updateKeywords();
+    this.doMeta();
   });
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -51,6 +56,8 @@ export class CountryDashboard {
     private state: TransferState,
     private socket: Socket,
     private conn: Connected,
+    private locale: Locale,
+    private seo: SEO,
   ) {
     if (isPlatformServer(this.platformId)) {
       this.now.set(Date.now());
@@ -60,6 +67,18 @@ export class CountryDashboard {
         this.top.set(val);
         state.set(this.topKey, val);
       }
+      if (this.request) {
+        const meta = {
+          brand: (this.request as any).brand,
+          top: (this.request as any).top,
+          year: (this.request as any).year,
+          support: (this.request as any).support,
+          url: (this.request as any).url,
+          email: (this.request as any).email,
+        }
+        this.metadata.set(meta);
+        state.set(this.metaKey, meta);
+      }
       this.updateKeywords();
     }
     else if (isPlatformBrowser(this.platformId) && this.keywords().length <= 0) {
@@ -68,6 +87,9 @@ export class CountryDashboard {
       }
       if (state.hasKey(this.topKey)) {
         this.top.set(state.get(this.topKey, 5));
+      }
+      if (state.hasKey(this.metaKey)) {
+        this.metadata.set(state.get(this.metaKey, {}));
       }
       if (state.hasKey(this.keywordsKey)) {
         this.keywords.set(state.get(this.keywordsKey, []));
@@ -90,6 +112,8 @@ export class CountryDashboard {
       // Socket disconnected
       this.conn.toggle(false);
     });
+
+    this.doMeta();
   }
 
   updateKeywords(rt: boolean = true) {
@@ -163,5 +187,49 @@ export class CountryDashboard {
     else {
       return 'bg-success';
     }
+  }
+
+  doMeta() {
+    const brand = this.metadata().brand;
+    const url = this.metadata().url + `/live/${this.ct.activeCountry().code.toLowerCase()}`;
+    const image = `${this.metadata().url}/img/banner.png`;
+    const logo = `${this.metadata().url}/img/icon.webp`;
+    const country = this.ct.activeCountry().name;
+    this.locale.waiter([
+      "META.COUNTRY.TITLE",
+      "META.COUNTRY.DESC",
+      "META.COUNTRY.KEYWORDS",
+    ], [
+      { brand, country },
+      { brand, country },
+      { brand, country },
+    ]).then(([title, desc, keywords]) => {
+      this.seo.run({
+        title,
+        desc,
+        author: brand,
+        keywords,
+        canonical: url,
+        url,
+        image,
+        schema: {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": url,
+          "name": brand,
+          "description": title,
+          "image": image,
+          "keywords": keywords,
+          "publisher": {
+            "@type": "Organization",
+            "name": brand,
+            "logo": {
+              "@type": "ImageObject",
+              "url": logo,
+            }
+          }
+        }
+      });
+    });
   }
 }

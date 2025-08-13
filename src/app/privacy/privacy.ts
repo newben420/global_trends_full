@@ -4,6 +4,8 @@ import { Footer } from '../partials/footer/footer';
 import { Header } from '../partials/header/header';
 import { SimpleHero } from '../partials/simple-hero/simple-hero';
 import { SharedModule } from '../shared/shared-module';
+import { Locale } from '../services/locale';
+import { SEO } from '../services/seo';
 
 @Component({
   selector: 'app-privacy',
@@ -20,17 +22,22 @@ import { SharedModule } from '../shared/shared-module';
 export class Privacy {
   private request = inject(REQUEST_CONTEXT);
   metadata = signal<any>({});
-  private metaKey = makeStateKey<any>('metap_ts');
+  private metaKey = makeStateKey<any>('meta_ts');
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private state: TransferState,
+    private locale: Locale,
+    private seo: SEO,
   ) {
     if (isPlatformServer(this.platformId)) {
       if (this.request) {
         const meta = {
           brand: (this.request as any).brand,
-          email: (this.request as any).email,
+          top: (this.request as any).top,
+          year: (this.request as any).year,
+          support: (this.request as any).support,
           url: (this.request as any).url,
+          email: (this.request as any).email,
         }
         this.metadata.set(meta);
         state.set(this.metaKey, meta);
@@ -41,5 +48,42 @@ export class Privacy {
         this.metadata.set(state.get(this.metaKey, {}));
       }
     }
+    this.doMeta();
+  }
+
+  doMeta() {
+    const brand = this.metadata().brand;
+    const url = this.metadata().url + '/privacy-policy';
+    const image = `${this.metadata().url}/img/banner.png`;
+    const logo = `${this.metadata().url}/img/icon.webp`;
+    this.locale.waiter([
+      "META.POLICY.TITLE",
+      "META.POLICY.DESC",
+      "META.POLICY.KEYWORDS",
+    ], [
+      { brand },
+      { brand },
+      { brand },
+    ]).then(([title, desc, keywords]) => {
+      this.seo.run({
+        title,
+        desc,
+        keywords,
+        canonical: url,
+        author: brand,
+        url,
+        image,
+        schema: {
+          "@context": "https://schema.org",
+          "@type": "PrivacyPolicy",
+          "name": title,
+          "url": url,
+          "publisher": {
+            "@type": "Organization",
+            "name": brand,
+          }
+        }
+      });
+    });
   }
 }

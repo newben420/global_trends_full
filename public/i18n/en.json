@@ -22,11 +22,11 @@
             "LIVE": "Live Trends"
         },
         "HERO": {
-            "TITLE": "Ranked Real-Time Global News Trends, Sentiments & Insights — Across Every Country",
+            "TITLE": "Ranked Live Global News Trends, Sentiments & Insights — Across Every Country",
             "DESCRIPTION": "Discover what’s truly trending worldwide, how people feel about it, and where it’s happening — all in one intuitive platform.",
             "CTA1": "Explore Live Trends",
             "CTA2": "Get Early API Access",
-            "CTA2_TOOLTIP": "Query historic and real-time trends from anywhere."
+            "CTA2_TOOLTIP": "Query historic and live trends from anywhere."
         },
         "HIW": {
             "TITLE": "HOW IT WORKS",
@@ -34,7 +34,7 @@
             "P1": "We monitor thousands of trusted news sources in real time, extracting what people are talking about by country.",
             "SUB2": "Understand Sentiment & Context",
             "P2": "Each trend is scored by tone — positive, negative, or neutral — and categorized for deeper insights e.g. Politics, Health, Entertainment.",
-            "SUB3": "Act on Real-Time Data & Movement",
+            "SUB3": "Act on Live Data & Movement",
             "P3": "See what’s rising or falling in prominence, and make smarter decisions faster. Track directions instantly."
         },
         "USERS": {
@@ -71,8 +71,8 @@
             }
         },
         "EMPTY": {
-            "TITLE": "Global Trends in Real-Time — Across Every Country",
-            "DESCRIPTION": "Every country's ranked, real-time trending keywords from its news and events. Take a pick.",
+            "TITLE": "Live Global Trends — Across Every Country",
+            "DESCRIPTION": "Every country's ranked, live trending keywords from its news and events. Take a pick.",
             "CTA": "Show Available Countries"
         }
     },
@@ -101,5 +101,31 @@
         "human_rights": "Human Rights & Social Issues",
         "transport": "Transportation & Infrastructure",
         "others": "Others"
+    },
+    "META": {
+        "HOME": {
+            "TITLE": "{{brand}} – Ranked Live Global Sentiment & Trends",
+            "DESC": "Track global sentiment in real time with {{brand}}. Discover trending topics, monitor tone shifts, and explore insights from news and social sources worldwide.",
+            "KEYWORDS": "{{brand}}, AI-powered news insights, real-time sentiment analysis, live news feed, ranked trends, global news trends, country-specific news, AI news summarizer, breaking news analysis, policitcal sentiment tracker, market sentiment analysis, news monitoring tool, emotion analysis in news, media sentiment tracker, news analytics platform"
+        },
+        "LIVE": {
+            "TITLE": "Live Global Sentiment Dashboard – {{brand}}",
+            "DESC": "View live sentiment updates from around the world. {{brand}} delivers real-time tone analysis and trending keywords from verified news and social media sources."
+        },
+        "COUNTRY": {
+            "TITLE": "{{country}}'s Live Top Trends & Sentiment –  {{brand}}",
+            "DESC": "Monitor real-time sentiment trends in {{country}}. See keyword activity, tone analysis, ranked top trends, and breaking updates as they happen.",
+            "KEYWORDS": "{{brand}}, {{country}}, AI-powered news insights, real-time sentiment analysis, live news feed, ranked trends, global news trends, country-specific news, AI news summarizer, breaking news analysis, policitcal sentiment tracker, market sentiment analysis, news monitoring tool, emotion analysis in news, media sentiment tracker, news analytics platform"
+        },
+        "TERMS": {
+            "TITLE": "Terms of Use –  {{brand}}",
+            "DESC": "Read the {{brand}} Terms of Use. Learn about your rights, responsibilities, and our guidelines for accessing and using our services.",
+            "KEYWORDS": "{{brand}}, terms of use"
+        },
+        "POLICY": {
+            "TITLE": "Privacy Policy  –  {{brand}}",
+            "DESC": "Understand how {{brand}} collects, uses, and protects your data. Read our full privacy policy for details on user rights and data handling.",
+            "KEYWORDS": "{{brand}}, privacy policy"
+        }
     }
 }

@@ -14,7 +14,7 @@ import { SharedModule } from '../../shared/shared-module';
 export class Footer {
   private request = inject(REQUEST_CONTEXT);
   metadata = signal<any>({});
-  private metaKey = makeStateKey<any>('metaf_ts');
+  private metaKey = makeStateKey<any>('meta_ts');
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private state: TransferState,
@@ -26,6 +26,8 @@ export class Footer {
           top: (this.request as any).top,
           year: (this.request as any).year,
           support: (this.request as any).support,
+          url: (this.request as any).url,
+          email: (this.request as any).email,
         }
         this.metadata.set(meta);
         state.set(this.metaKey, meta);

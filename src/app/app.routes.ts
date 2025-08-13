@@ -1,4 +1,4 @@
-import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
+import { ExtraOptions, Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { centralResolver } from './resolvers/central-resolver';
 import { countryAccessGuard } from './guards/country-access-guard';
 import { countryLeaveGuard } from './guards/country-leave-guard';
@@ -55,3 +55,9 @@ export const routes: Routes = [
         redirectTo: '/',
     }
 ];
+
+export const routerOptions: ExtraOptions = {
+    scrollPositionRestoration: 'enabled', // Resets scroll to top on navigation
+    anchorScrolling: 'disabled', // Enables scrolling to anchors
+    // onSameUrlNavigation: 'reload',
+};

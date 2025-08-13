@@ -69,5 +69,5 @@ export class Countries {
     // this.store.delete(this.storeKey);
   }
 
-  allCodes = [...countryCodes];
+  allCodes = [...countryCodes.filter(x => x != "XX")];
 }

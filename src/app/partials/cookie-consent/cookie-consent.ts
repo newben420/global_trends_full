@@ -17,7 +17,7 @@ export class CookieConsent {
   metadata = signal<any>({});
   storeKey = "cookie_consent";
   storeVal = "y";
-  private metaKey = makeStateKey<any>('metac_ts');
+  private metaKey = makeStateKey<any>('meta_ts');
   visible = signal<boolean>(false);
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -28,6 +28,11 @@ export class CookieConsent {
       if (this.request) {
         const meta = {
           brand: (this.request as any).brand,
+          top: (this.request as any).top,
+          year: (this.request as any).year,
+          support: (this.request as any).support,
+          url: (this.request as any).url,
+          email: (this.request as any).email,
         }
         this.metadata.set(meta);
         state.set(this.metaKey, meta);

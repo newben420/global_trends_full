@@ -1,7 +1,7 @@
 <mat-toolbar class="bg-surf heading position-fixed">
     <a [routerLink]="'/'" class="text-decoration-none col-os">
         <img class="me-2" id="logo" src="/img/icon_small.webp" alt="Logo">
-        <span class="title">{{metadata().brand}}</span>
+        <span class="title fw-regular col-os fs-5">{{metadata().brand}}</span>
     </a>
     <span class="spacer"></span>
     <a mat-flat-button class="rounded me-2" [routerLink]="'/live'"> {{'HOME.NAV.LIVE' | translate}}</a>

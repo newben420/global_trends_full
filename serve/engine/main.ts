@@ -195,8 +195,8 @@ export class MainEngine {
                                 // keyword already exist in the country
                                 // updating category
                                 structured[country][keyword].category = Array.from(new Set(structured[country][keyword].category.concat([category])));
-                                if (structured[country][keyword].category.length > MAX_PARSED_ITEMS) {
-                                    structured[country][keyword].category = structured[country][keyword].category.slice(structured[country][keyword].category.length - MAX_PARSED_ITEMS);
+                                if (structured[country][keyword].category.length > MAX_CATEGORIES) {
+                                    structured[country][keyword].category = structured[country][keyword].category.slice(structured[country][keyword].category.length - MAX_CATEGORIES);
                                 }
                                 // finalizing
                                 const newCount = structured[country][keyword].count + 1;
@@ -241,6 +241,9 @@ export class MainEngine {
                 const existing = oldList.find(e => e.keyword === kw);
                 if (existing) {
                     existing.categories = [...new Set([...existing.categories, ...category])].slice(-MAX_CATEGORIES);
+                    if(existing.categories.length > MAX_CATEGORIES){
+                        existing.categories = existing.categories.slice(existing.categories.length - MAX_CATEGORIES);
+                    }
                     existing.tone = (existing.tone * existing.count + tone * count) / (existing.count + count);
                     existing.count += count;
                     existing.lastUpdated = now;

@@ -35,5 +35,6 @@ export class Site {
     static AUTH_JWT_COOKIE_NAME = () => process.env["AUTH_JWT_COOKIE_NAME"] || "sess";
 
     static TRENDS_TOP_NUMBER = () => parseInt(process.env["TRENDS_TOP_NUMBER"] || "0") || 10;
+    static SUPPORT_URL = () => process.env["SUPPORT_URL"] || "";
 
 }

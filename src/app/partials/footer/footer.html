@@ -1,0 +1,18 @@
+<footer class="bg-bg px-2 py-5">
+    <div class="urls fs-6 d-flex flex-wrap flex-row align-items-center justify-content-center">
+        @if(metadata().support){
+        <a target="_blank" class="text-decoration-none fw-bold goldilocks col-os opacity-75 m-3 text-center"
+            rel="nofollow noindex noopener" href="{{metadata().support}}">{{'HOME.FOOTER.SUPPORT' | translate: {BRAND:
+            metadata().brand} }}</a>
+        }
+        <a class="text-decoration-none col-os goldilocks opacity-75 m-3 text-center"
+            [routerLink]="'/terms-of-use'">{{'HOME.FOOTER.TERMS' | translate}}</a>
+        <a class="text-decoration-none col-os goldilocks opacity-75 m-3 text-center"
+            [routerLink]="'/terms-of-use'">{{'HOME.FOOTER.POLICY' | translate}}</a>
+    </div>
+
+    <div
+        class="rights d-flex opacity-50 pt-4 flex-wrap flex-row align-items-center justify-content-center tiny-text text-center">
+        {{metadata().brand | titlecase }} &copy; {{metadata().year}} <br> {{'HOME.FOOTER.RIGHTS' | translate}}
+    </div>
+</footer>

@@ -12,6 +12,9 @@
     "SUBMIT": "Submit",
     "AGO": "{{time}} ago",
     "CHANGE_PREF_LANGUAGE": "Choose Preferred Language",
+    "OK": "Ok! Got It",
+    "COOK_CONSENT": "Hi there 👋 — We use cookies to improve your experience and analyze site traffic. By continuing to browse, you agree to our use of cookies. First time here? Welcome aboard!",
+    "SOON": "Coming soon...",
     "HOME": {
         "NAV": {
             "LIVE": "Live Trends"
@@ -20,7 +23,34 @@
             "TITLE": "Ranked Real-Time Global News Trends, Sentiments & Insights— Across Every Country",
             "DESCRIPTION": "Discover what’s truly trending worldwide, how people feel about it, and where it’s happening — all in one intuitive platform.",
             "CTA1": "Explore Live Trends",
-            "CTA2": "Get Early API Access"
+            "CTA2": "Get Early API Access",
+            "CTA2_TOOLTIP": "Query historic and real-time trends from anywhere."
+        },
+        "HIW": {
+            "TITLE": "HOW IT WORKS",
+            "SUB1": "Track Trending Keywords & Entities Globally",
+            "P1": "We monitor thousands of trusted news sources in real time, extracting what people are talking about by country.",
+            "SUB2": "Understand Sentiment & Context",
+            "P2": "Each trend is scored by tone — positive, negative, or neutral — and categorized for deeper insights e.g. Politics, Health, Entertainment.",
+            "SUB3": "Act on Real-Time Data & Movement",
+            "P3": "See what’s rising or falling in prominence, and make smarter decisions faster. Track directions instantly."
+        },
+        "USERS": {
+            "TITLE": "WHO IS {{brand}} FOR?",
+            "U1": "Journalists & Media",
+            "U2": "Marketers & PR Professionals",
+            "U3": "Government & Policy Makers",
+            "U4": "Financial Analysts & Investors",
+            "U5": "Researchers & Data Scientists",
+            "U6": "Crisis Response & Humanitarian Agencies",
+            "U7": "Law Enforcement & Security Analysts",
+            "U8": "Brand & Reputation Managers"
+        },
+        "FOOTER": {
+            "TERMS": "Terms of use",
+            "POLICY": "Privacy Policy",
+            "SUPPORT": "Support {{BRAND}}",
+            "RIGHTS": "All rights reserved."
         }
     },
     "DASH": {
@@ -28,8 +58,7 @@
         "SEARCH": "Search country",
         "COUNTRY": {
             "TITLE": "{{country}}'s Top {{number}}",
-            "NO_DATA": "Sorry! No trend data available for {{country}} at this moment. Stay on the page for updates or check back soon."
-            ,
+            "NO_DATA": "Sorry! No trend data available for {{country}} at this moment. Stay on the page for updates or check back soon.",
             "TABLE": {
                 "RANK": "Rank",
                 "KEYWORD": "Keyword",

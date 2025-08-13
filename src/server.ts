@@ -108,6 +108,8 @@ app.use((req, res, next) => {
       cookies,
       brand: Site.BRAND(),
       top: Site.TRENDS_TOP_NUMBER(),
+      year: (new Date()).getFullYear(),
+      support: Site.SUPPORT_URL(),
     })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),

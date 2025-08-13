@@ -1,0 +1,10 @@
+.box{
+    bottom: calc(-1 * 100vh);
+    right: 0px;
+    max-height: 100vh;
+    transition: bottom 500ms ease-in-out;
+}
+
+.box.active{
+    bottom: 0px;
+}

@@ -1,22 +1,17 @@
+import { isPlatformServer, isPlatformBrowser, CommonModule } from '@angular/common';
 import { Component, inject, Inject, makeStateKey, PLATFORM_ID, REQUEST_CONTEXT, signal, TransferState } from '@angular/core';
-import { SharedModule } from '../shared/shared-module';
-import { Header } from '../partials/header/header';
-import { Hero } from "../partials/hero/hero";
-import { isPlatformServer, isPlatformBrowser } from '@angular/common';
-import { Footer } from "../partials/footer/footer";
+import { SharedModule } from '../../shared/shared-module';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-footer',
   imports: [
     SharedModule,
-    Header,
-    Hero,
-    Footer,
-],
-  templateUrl: './home.html',
-  styleUrl: './home.scss'
+    CommonModule,
+  ],
+  templateUrl: './footer.html',
+  styleUrl: './footer.scss'
 })
-export class Home {
+export class Footer {
   private request = inject(REQUEST_CONTEXT);
   metadata = signal<any>({});
   private metaKey = makeStateKey<any>('meta_ts');
@@ -29,6 +24,8 @@ export class Home {
         const meta = {
           brand: (this.request as any).brand,
           top: (this.request as any).top,
+          year: (this.request as any).year,
+          support: (this.request as any).support,
         }
         this.metadata.set(meta);
         state.set(this.metaKey, meta);

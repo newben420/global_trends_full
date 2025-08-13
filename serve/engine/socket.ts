@@ -5,6 +5,7 @@ export class SocketEngine {
     private static io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
 
     static initialize = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
+        console.log('socket initialized');
         SocketEngine.io = io;
         SocketEngine.runOnce();
     }
@@ -21,7 +22,9 @@ export class SocketEngine {
         }
     }
 
-    // static broadcastRouteData = (socket: Socket) => {
-    //     socket.emit("ROUTE_UPDATE", DataEngine.path.getValue());
-    // }
+    static broadcastUPDATE = (codes: string[]) => {
+        if(SocketEngine.io){
+            SocketEngine.io.emit("DATA_UPDATE", codes);
+        }
+    }
 }

@@ -1,5 +1,5 @@
 <div class="container-xxl m-0 p-0 my-3">
-    <h1 class="m-0 p-0 text-center text-md-start display-5 fw-light" translate
+    <h1 class="m-0 p-0 text-center text-md-start display-5 fw-light mt-5 mb-2" translate
         [translateParams]="{country: ct.activeCountry().name, number: top()}">DASH.COUNTRY.TITLE</h1>
     @if(keywords().length > 0){
     <div class="table-container horizon w-100 overflow-auto">
@@ -10,13 +10,13 @@
 
             <!-- Position Column -->
             <ng-container matColumnDef="rank">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> Rank </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.RANK' | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.rank}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="keyword">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> Keyword </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.KEYWORD' | translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     @if(element.delta != 0){
                     <i
@@ -28,7 +28,7 @@
 
             <!-- Weight Column -->
             <ng-container matColumnDef="tone">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> Tone </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.TONE' | translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     <span
                         class="d-inline-block text-light tiny-text text-nowrap tiny-text-xs p-2 py-1 rounded {{tone2colourClass(element.tone)}}">{{('TONE.'+tone2label(element.tone))
@@ -38,18 +38,18 @@
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="lastUpdated">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> Last Updated </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.LU' | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{"AGO" | translate: {time: GTE(element.lastUpdated, now())} }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="firstUpdated">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> Trend Duration </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.DURATION' | translate}} </th>
                 <td mat-cell *matCellDef="let element">{{GTE(element.firstUpdated, now())}}</td>
             </ng-container>
 
             <ng-container matColumnDef="categories">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> Topics </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.CATS' | translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     @for(category of element.categories; track category){
                     <!-- <span>{{category}}</span> -->

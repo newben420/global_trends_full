@@ -10,6 +10,7 @@ import split2 from 'split2';
 import { transform } from 'stream-transform';
 import { Writable } from 'stream';
 import { createReadStream, ReadStream } from 'fs';
+import { SocketEngine } from './socket';
 
 const SLUG = "MainEngine"; /* Engine name to be used n flow logs */
 const WEIGHT = 3; /* Weight to use in flow logs */
@@ -226,8 +227,9 @@ export class MainEngine {
         >>
     ) => {
         const now = Date.now();
-
+        let codes: string[] = [];
         for (const country of Object.keys(newData) as CountryCode[]) {
+            codes.push(country);
             if (!MainEngine.trends[country]) {
                 MainEngine.trends[country] = [];
             }
@@ -269,6 +271,10 @@ export class MainEngine {
                     e => now - e.lastUpdated <= Site.KEYWORD_HARD_EXPIRE_MS()
                 );
             }
+        }
+
+        if(codes.length > 0){
+            SocketEngine.broadcastUPDATE(codes);
         }
     }
 

@@ -6,6 +6,9 @@ import { Server } from '../../services/server';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { getDateTime2, getTimeElapsed } from '../../../../serve/lib/date_time';
+import { Socket } from 'ngx-socket-io';
+import { Subscription } from 'rxjs';
+import { Connected } from '../../services/connected';
 
 @Component({
   selector: 'app-country-dashboard',
@@ -18,6 +21,7 @@ import { getDateTime2, getTimeElapsed } from '../../../../serve/lib/date_time';
 })
 export class CountryDashboard {
   private request = inject(REQUEST_CONTEXT);
+  subs: Record<string, Subscription> = {};
   GDT = getDateTime2;
   GTE = getTimeElapsed;
   now = signal<number>(0);
@@ -40,6 +44,8 @@ export class CountryDashboard {
     public ct: Countries,
     private server: Server,
     private state: TransferState,
+    private socket: Socket,
+    private conn: Connected,
   ) {
     if (isPlatformServer(this.platformId)) {
       this.now.set(Date.now());
@@ -65,6 +71,20 @@ export class CountryDashboard {
         this.updateKeywords();
       }
     }
+    this.subs["socket_conn"] = this.socket.fromEvent<string>('connect').subscribe((data) => {
+      this.conn.toggle(true);
+    });
+
+    this.subs["data_update"] = this.socket.fromEvent('DATA_UPDATE').subscribe((codes: string[]) => {
+      if(codes.includes(this.ct.activeCountry().code)){
+        this.updateKeywords();
+      }
+    });
+
+    this.subs["socket_disconn"] = this.socket.fromEvent('disconnect').subscribe(() => {
+      // Socket disconnected
+      this.conn.toggle(false);
+    });
   }
 
   updateKeywords() {
@@ -92,6 +112,9 @@ export class CountryDashboard {
     if(this.timeUpdate){
       clearInterval(this.timeUpdate);
     }
+    Object.keys(this.subs).forEach(x => {
+      this.subs[x].unsubscribe();
+    });
   }
 
   tone2label(tone: number) {

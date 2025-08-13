@@ -18,6 +18,15 @@
         "COUNTRY": {
             "TITLE": "{{country}}'s Top {{number}}",
             "NO_DATA": "Sorry! No trend data available for {{country}} at this moment. Stay on the page for updates or check back soon."
+            ,
+            "TABLE": {
+                "RANK": "Rank",
+                "KEYWORD": "Keyword",
+                "TONE": "Tone",
+                "LU": "Last Updated",
+                "DURATION": "Duration",
+                "CATS": "Topics"
+            }
         },
         "EMPTY": {
             "TITLE": "Global Trends in Real-Time — Across Every Country",

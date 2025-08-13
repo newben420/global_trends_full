@@ -8,6 +8,9 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { timeoutInterceptor } from './interceptors/timeout.interceptor';
 import { LOCALES } from './locales';
+import { SocketIoConfig, provideSocketIo } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: '/', options: {} };
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +26,6 @@ export const appConfig: ApplicationConfig = {
       fallbackLang: LOCALES[0],
       lang: LOCALES[0],
     }),
+    provideSocketIo(config),
   ]
 };

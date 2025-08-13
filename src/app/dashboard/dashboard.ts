@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterOutlet } from '@angular/router';
 import { Countries } from '../services/countries';
 import { Dashside } from '../services/dashside';
+import { Connected } from '../services/connected';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +31,6 @@ export class Dashboard {
   widthBreakPoint: number = 768;
   subs: Record<string, Subscription> = {};
   brand = signal<string>('');
-  connected = signal<boolean | null>(null);
   searchKeyword = signal<string>('');
   countries = computed(() => {
     return this.countService.all().filter(c => this.searchKeyword() ? (c.code.toLowerCase().includes(this.searchKeyword().toLowerCase()) || c.name.toLowerCase().includes(this.searchKeyword().toLowerCase())) : true)
@@ -40,6 +40,7 @@ export class Dashboard {
     @Inject(PLATFORM_ID) private platformId: Object,
     public countService: Countries,
     public side: Dashside,
+    public conn: Connected,
   ) {
 
   }

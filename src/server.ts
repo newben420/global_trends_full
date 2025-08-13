@@ -1,3 +1,4 @@
+import { SocketEngine } from './../serve/engine/socket';
 import { api } from './../serve/api';
 import {
   AngularNodeAppEngine,
@@ -9,12 +10,19 @@ import express from 'express';
 import { join } from 'node:path';
 import { Log } from './../serve/lib/log';
 import { startEngine, stopEngine } from './../serve/engine/terminal';
+import https from 'https';
+import http from 'http';
 import { Site } from './../serve/site';
+if (Site.FORCE_FAMILY_4()) {
+  https.globalAgent.options.family = 4;
+}
+import { Server } from 'socket.io';
 import { enableProdMode, REQUEST, RESPONSE_INIT as RESPONSE } from '@angular/core';
 import bodyParser from 'body-parser';
 import cookieParser from "cookie-parser";
 import { CookieEngine } from '../serve/engine/cookie';
 import { allowedCookies } from '../serve/model/allowedCookies';
+
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -23,6 +31,8 @@ if(Site.PRODUCTION()){
 }
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 const angularApp = new AngularNodeAppEngine();
 
 process.on('exit', async (code) => {
@@ -121,9 +131,12 @@ startEngine().then(r => {
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */
 if (isMainModule(import.meta.url)) {
-  app.listen(Site.PORT(), (error) => {
+  server.listen(Site.PORT(), (error?: any) => {
     if (error) {
       throw error;
+    }
+    else{
+      SocketEngine.initialize(io);
     }
     Log.flow([Site.TITLE(), `Running at http://127.0.0.1:${Site.PORT()}`], 0);
   });

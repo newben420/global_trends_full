@@ -10,12 +10,13 @@
     "INP_ERR": "There is something wrong with your input",
     "CANCEL": "Cancel",
     "SUBMIT": "Submit",
+    "AGO": "{{time}} ago",
     "CHANGE_PREF_LANGUAGE": "Choose Preferred Language",
     "DASH": {
         "TITLE": "Global Trends",
         "SEARCH": "Search country",
         "COUNTRY": {
-            "TITLE": "{{country}}'s Top {{number}} Trending Keywords",
+            "TITLE": "{{country}}'s Top {{number}}",
             "NO_DATA": "Sorry! No trend data available for {{country}} at this moment. Stay on the page for updates or check back soon."
         },
         "EMPTY": {
@@ -23,5 +24,31 @@
             "DESCRIPTION": "Every country's ranked, real-time trending keywords from its news and events. Take a pick.",
             "CTA": "Show Available Countries"
         }
+    },
+    "TONE": {
+        "VERY_NEGATIVE": "Strong -",
+        "NEGATIVE": "High -",
+        "SLIGHTLY_NEGATIVE": "Mild -",
+        "NEUTRAL": "Neutral",
+        "SLIGHTLY_POSITIVE": "Mild +",
+        "POSITIVE": "High +",
+        "VERY_POSITIVE": "Strong +"
+    },
+    "CATEGORY": {
+        "politics": "Politics & Governance",
+        "economy": "Economy & Finance",
+        "conflict": "Conflict & Security",
+        "health": "Health & Medicine",
+        "environment": "Environment & Climate",
+        "science": "Science & Technology",
+        "sports": "Sports & Recreation",
+        "culture": "Arts, Culture & Entertainment",
+        "religion": "Religion & Belief",
+        "education": "Education",
+        "disaster": "Disasters & Accidents",
+        "law": "Law & Justice",
+        "human_rights": "Human Rights & Social Issues",
+        "transport": "Transportation & Infrastructure",
+        "others": "Others"
     }
 }

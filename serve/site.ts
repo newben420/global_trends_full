@@ -17,6 +17,8 @@ export class Site {
     
     static MAIN_INTERVAL_MS = () => parseInt(process.env["MAIN_INTERVAL_MS"] || "0") || 5;
     static MAIN_USE = () => (process.env["MAIN_USE"] || "").toLowerCase() == "true";
+    static MAIN_LOCAL_ABS_PATH_GKG = () => process.env["MAIN_LOCAL_ABS_PATH_GKG"] || "";
+    static MAIN_LOCAL_ABS_PATH_EXPORT = () => process.env["MAIN_LOCAL_ABS_PATH_EXPORT"] || "";
 
 
     static KEYWORD_SOFT_EXPIRE_MS = () => parseInt(process.env["KEYWORD_SOFT_EXPIRE_MS"] || "0") || 3600000;

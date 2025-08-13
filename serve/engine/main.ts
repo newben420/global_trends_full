@@ -4,11 +4,12 @@ import { countries3to2, countryCodes } from '../model/countries';
 import { CountryCode, KeywordEntry, RawData, theme2category } from '../model/theme2category';
 import { getTimeElapsed } from './../lib/date_time';
 import { Log } from './../lib/log';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import unzipper from 'unzipper';
 import split2 from 'split2';
 import { transform } from 'stream-transform';
 import { Writable } from 'stream';
+import { createReadStream, ReadStream } from 'fs';
 
 const SLUG = "MainEngine"; /* Engine name to be used n flow logs */
 const WEIGHT = 3; /* Weight to use in flow logs */
@@ -21,13 +22,18 @@ export class MainEngine {
 
     private static trends: Record<CountryCode, KeywordEntry[]> = {};
 
+    private static running: boolean = false;
+
     static start = () => new Promise<boolean>((resolve, reject) => {
         for (const cc of countryCodes) {
             MainEngine.trends[cc] = [];
         }
-        if(Site.MAIN_USE()){
+        if (Site.MAIN_USE()) {
             setTimeout(() => {
-                MainEngine.run();
+                if(!MainEngine.running){
+                    MainEngine.running = true;
+                    MainEngine.run();
+                }
             }, 1000);
         }
         resolve(true);
@@ -39,7 +45,7 @@ export class MainEngine {
 
     static getTrends = () => MainEngine.trends;
     static getTrendsByCountry = (code: string): KeywordEntry[] | null => {
-        if(MainEngine.trends[code]){
+        if (MainEngine.trends[code]) {
             return MainEngine.trends[code].slice(0, Site.TRENDS_TOP_NUMBER());
         }
         return null
@@ -54,13 +60,20 @@ export class MainEngine {
         let exportx: null | string = null;
         let mentions: null | string = null;
         try {
-            const r = await axios.get(`http://data.gdeltproject.org/gdeltv2/lastupdate.txt`);
-            const g = ((r.data as string).split(/[\n\s]/).filter(str => /\.gkg\.csv/i.test(str))[0] || '').trim();
-            const e = ((r.data as string).split(/[\n\s]/).filter(str => /\.export\.csv/i.test(str))[0] || '').trim();
-            const m = ((r.data as string).split(/[\n\s]/).filter(str => /\.mentions\.csv/i.test(str))[0] || '').trim();
-            if (g) gkg = g;
-            if (e) exportx = e;
-            if (m) mentions = m;
+            if (Site.MAIN_LOCAL_ABS_PATH_GKG() && Site.MAIN_LOCAL_ABS_PATH_EXPORT()) {
+                gkg = Site.MAIN_LOCAL_ABS_PATH_GKG();
+                exportx = Site.MAIN_LOCAL_ABS_PATH_EXPORT();
+                mentions = 'Not applicable';
+            }
+            else {
+                const r = await axios.get(`http://data.gdeltproject.org/gdeltv2/lastupdate.txt`);
+                const g = ((r.data as string).split(/[\n\s]/).filter(str => /\.gkg\.csv/i.test(str))[0] || '').trim();
+                const e = ((r.data as string).split(/[\n\s]/).filter(str => /\.export\.csv/i.test(str))[0] || '').trim();
+                const m = ((r.data as string).split(/[\n\s]/).filter(str => /\.mentions\.csv/i.test(str))[0] || '').trim();
+                if (g) gkg = g;
+                if (e) exportx = e;
+                if (m) mentions = m;
+            }
         } catch (error) {
             Log.dev(error);
 
@@ -73,10 +86,10 @@ export class MainEngine {
     private static downloadZip = (url: string) => new Promise<any[] | null>(async (resolve, reject) => {
         try {
             Log.flow([SLUG, `Iteration`, `Downloading zip file from ${url}.`], WEIGHT);
-            const response = await axios.get(url, { responseType: 'stream' });
+            const response = (Site.MAIN_LOCAL_ABS_PATH_GKG() && Site.MAIN_LOCAL_ABS_PATH_EXPORT()) ? createReadStream(url) : await axios.get(url, { responseType: 'stream' });
             Log.flow([SLUG, `Iteration`, `Downloaded zip file. Unzipping`], WEIGHT);
 
-            const unzipStream = response.data.pipe(unzipper.Parse());
+            const unzipStream = (Site.MAIN_LOCAL_ABS_PATH_GKG() && Site.MAIN_LOCAL_ABS_PATH_EXPORT()) ? (response as ReadStream).pipe(unzipper.Parse()) : (response as AxiosResponse<any, any> ).data.pipe(unzipper.Parse());
             Log.flow([SLUG, `Iteration`, `Unzipped file`], WEIGHT);
 
             const rows: any[] = [];
@@ -148,7 +161,7 @@ export class MainEngine {
         >> = {}
         const today = `${d.getFullYear()}${(d.getMonth() + 1).toString().padStart(2, '0')}${d.getDate().toString().padStart(2, '0')}`;
         for (const cols of rows) {
-            if ((cols[1] || '').startsWith(today)) {
+            if ((cols[1] || '').startsWith(today) || Site.MAIN_LOCAL_ABS_PATH_GKG()) {
                 const domainCT = ((cols[3] || "").split(".").slice(-1)[0] || '').toUpperCase();
                 let country = "";
                 if (!country) {
@@ -224,14 +237,14 @@ export class MainEngine {
             // Merge
             for (const [kw, { category, tone, count }] of Object.entries(newData[country])) {
                 const existing = oldList.find(e => e.keyword === kw);
-                if(existing){
+                if (existing) {
                     existing.categories = [...new Set([...existing.categories, ...category])].slice(-MAX_CATEGORIES);
                     existing.tone = (existing.tone * existing.count + tone * count) / (existing.count + count);
                     existing.count += count;
                     existing.lastUpdated = now;
                 }
-                else{
-                    oldList.push({keyword: kw, categories: category, tone, count, lastUpdated: now + 1, delta: 0, firstUpdated: now});
+                else {
+                    oldList.push({ keyword: kw, categories: category, tone, count, lastUpdated: now + 1, delta: 0, firstUpdated: now });
                 }
             }
 
@@ -250,8 +263,8 @@ export class MainEngine {
         }
 
         // Hard expire for untouched countries
-        for(const country of Object.keys(MainEngine.trends) as CountryCode[]){
-            if(!(country in newData)){
+        for (const country of Object.keys(MainEngine.trends) as CountryCode[]) {
+            if (!(country in newData)) {
                 MainEngine.trends[country] = MainEngine.trends[country].filter(
                     e => now - e.lastUpdated <= Site.KEYWORD_HARD_EXPIRE_MS()
                 );

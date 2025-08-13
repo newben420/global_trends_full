@@ -15,12 +15,14 @@
     "OK": "Ok! Got It",
     "COOK_CONSENT": "Hi there 👋 — We use cookies to improve your experience and analyze site traffic. By continuing to browse, you agree to our use of cookies. First time here? Welcome aboard!",
     "SOON": "Coming soon...",
+    "NON_TRANSLATABLE": "Please note that the contents of this page, in English, are not localized for other languages.",
     "HOME": {
+        "TITLE": "Home",
         "NAV": {
             "LIVE": "Live Trends"
         },
         "HERO": {
-            "TITLE": "Ranked Real-Time Global News Trends, Sentiments & Insights— Across Every Country",
+            "TITLE": "Ranked Real-Time Global News Trends, Sentiments & Insights — Across Every Country",
             "DESCRIPTION": "Discover what’s truly trending worldwide, how people feel about it, and where it’s happening — all in one intuitive platform.",
             "CTA1": "Explore Live Trends",
             "CTA2": "Get Early API Access",

@@ -14,7 +14,7 @@ import { SharedModule } from '../../shared/shared-module';
 export class Header {
   private request = inject(REQUEST_CONTEXT);
   metadata = signal<any>({});
-  private metaKey = makeStateKey<any>('meta_ts');
+  private metaKey = makeStateKey<any>('metahh_ts');
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private state: TransferState,

@@ -6,9 +6,11 @@
             metadata().brand} }}</a>
         }
         <a class="text-decoration-none col-os goldilocks opacity-75 m-3 text-center"
+            [routerLink]="'/'">{{'HOME.TITLE' | translate}}</a>
+        <a class="text-decoration-none col-os goldilocks opacity-75 m-3 text-center"
             [routerLink]="'/terms-of-use'">{{'HOME.FOOTER.TERMS' | translate}}</a>
         <a class="text-decoration-none col-os goldilocks opacity-75 m-3 text-center"
-            [routerLink]="'/terms-of-use'">{{'HOME.FOOTER.POLICY' | translate}}</a>
+            [routerLink]="'/privacy-policy'">{{'HOME.FOOTER.POLICY' | translate}}</a>
     </div>
 
     <div

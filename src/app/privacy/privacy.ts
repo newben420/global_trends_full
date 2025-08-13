@@ -1,20 +1,26 @@
-import { isPlatformServer, isPlatformBrowser, CommonModule } from '@angular/common';
+import { CommonModule, isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { Component, inject, Inject, makeStateKey, PLATFORM_ID, REQUEST_CONTEXT, signal, TransferState } from '@angular/core';
-import { SharedModule } from '../../shared/shared-module';
+import { Footer } from '../partials/footer/footer';
+import { Header } from '../partials/header/header';
+import { SimpleHero } from '../partials/simple-hero/simple-hero';
+import { SharedModule } from '../shared/shared-module';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-privacy',
   imports: [
-    SharedModule,
+    Header,
+    Footer,
+    SimpleHero,
     CommonModule,
+    SharedModule,
   ],
-  templateUrl: './footer.html',
-  styleUrl: './footer.scss'
+  templateUrl: './privacy.html',
+  styleUrl: './privacy.scss'
 })
-export class Footer {
+export class Privacy {
   private request = inject(REQUEST_CONTEXT);
   metadata = signal<any>({});
-  private metaKey = makeStateKey<any>('metaf_ts');
+  private metaKey = makeStateKey<any>('metap_ts');
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private state: TransferState,
@@ -23,9 +29,7 @@ export class Footer {
       if (this.request) {
         const meta = {
           brand: (this.request as any).brand,
-          top: (this.request as any).top,
-          year: (this.request as any).year,
-          support: (this.request as any).support,
+          email: (this.request as any).email,
         }
         this.metadata.set(meta);
         state.set(this.metaKey, meta);

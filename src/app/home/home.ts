@@ -19,7 +19,7 @@ import { Footer } from "../partials/footer/footer";
 export class Home {
   private request = inject(REQUEST_CONTEXT);
   metadata = signal<any>({});
-  private metaKey = makeStateKey<any>('meta_ts');
+  private metaKey = makeStateKey<any>('metah_ts');
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private state: TransferState,

@@ -17,7 +17,7 @@ export class CookieConsent {
   metadata = signal<any>({});
   storeKey = "cookie_consent";
   storeVal = "y";
-  private metaKey = makeStateKey<any>('meta_ts');
+  private metaKey = makeStateKey<any>('metac_ts');
   visible = signal<boolean>(false);
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,

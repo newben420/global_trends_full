@@ -35,6 +35,16 @@ export const routes: Routes = [
         ],
     },
     {
+        path: 'terms-of-use',
+        pathMatch: 'full',
+        loadComponent: () => import('./terms/terms').then(m => m.Terms),
+    },
+    {
+        path: 'privacy-policy',
+        pathMatch: 'full',
+        loadComponent: () => import('./privacy/privacy').then(m => m.Privacy),
+    },
+    {
         path: '**',
         redirectTo: '/',
     }

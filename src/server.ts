@@ -110,6 +110,7 @@ app.use((req, res, next) => {
       top: Site.TRENDS_TOP_NUMBER(),
       year: (new Date()).getFullYear(),
       support: Site.SUPPORT_URL(),
+      email: Site.SUPPORT_EMAIL(),
     })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),

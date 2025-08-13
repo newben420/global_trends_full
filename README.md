@@ -35,4 +35,5 @@ This will compile your project and store the build artifacts in the `dist/` dire
   <img src="screenshots/screen2.png" style="max-width: 1000px;width: 100%" />
   <img src="screenshots/screen3.png" style="max-width: 1000px;width: 100%" />
   <img src="screenshots/screen4.png" style="max-width: 1000px;width: 100%" />
+  <img src="screenshots/screen5.png" style="max-width: 1000px;width: 100%" />
 </p>

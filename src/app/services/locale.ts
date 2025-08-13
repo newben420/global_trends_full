@@ -4,6 +4,7 @@ import { Store } from './store';
 import { ResParamFx, StringArrayParamFx } from '../../../serve/lib/functions';
 import { Subscription } from 'rxjs';
 import { GRes } from '../../../serve/lib/res';
+import { LOCALES } from '../locales';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,10 @@ export class Locale {
   }
 
   setLocale(locale: string) {
-    this.trans.use(locale);
-    this.store.set("locale", locale);
+    if (LOCALES.includes(locale)) {
+      this.trans.use(locale);
+      this.store.set("locale", locale);
+    }
   }
 
   private con(key: string, fn: ResParamFx, val: any = {}) {

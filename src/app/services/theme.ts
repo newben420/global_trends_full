@@ -6,7 +6,7 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
   providedIn: 'root'
 })
 export class Theme {
-  private key: string = "theme";
+  key: string = "theme";
   private isBrowser: boolean;
   private isServer: boolean;
   private dark = signal<boolean>(false);

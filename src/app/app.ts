@@ -6,6 +6,9 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 import AOS from 'aos';
 import { isPlatformBrowser } from '@angular/common';
 import { CookieConsent } from "./partials/cookie-consent/cookie-consent";
+import { Store } from './services/store';
+import { Locale } from './services/locale';
+import { Theme } from './services/theme';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +29,9 @@ export class App {
     @Inject(PLATFORM_ID) private platformId: Object,
     private prel: Preloader,
     private router: Router,
+    private store: Store,
+    private locale: Locale,
+    private theme: Theme,
   ) {
 
   }
@@ -33,8 +39,26 @@ export class App {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       AOS.init({
-        // duration: 800, // animation duration
-        // once: true,    // whether animation should happen only once
+        duration: 500, // animation duration
+        once: true,    // whether animation should happen only once
+      });
+      // use browser theme by default
+      this.store.get(this.theme.key).then(r => {
+        if(!r){
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if((this.theme.isDark() && (!prefersDark)) || ((!this.theme.isDark()) && prefersDark)){
+            this.theme.setTheme();
+          }
+        }
+      });
+      // use browser locale by default
+      this.store.get("locale").then(r => {
+        if(!r){
+          const pref = navigator.language?.slice(0, 2).toLowerCase();
+          if(pref){
+            this.locale.setLocale(pref);
+          }
+        }
       });
     }
   }

@@ -37,11 +37,17 @@ export const routes: Routes = [
     {
         path: 'terms-of-use',
         pathMatch: 'full',
+        resolve: {
+            init: centralResolver,
+        },
         loadComponent: () => import('./terms/terms').then(m => m.Terms),
     },
     {
         path: 'privacy-policy',
         pathMatch: 'full',
+        resolve: {
+            init: centralResolver,
+        },
         loadComponent: () => import('./privacy/privacy').then(m => m.Privacy),
     },
     {

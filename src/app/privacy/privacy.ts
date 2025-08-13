@@ -30,6 +30,7 @@ export class Privacy {
         const meta = {
           brand: (this.request as any).brand,
           email: (this.request as any).email,
+          url: (this.request as any).url,
         }
         this.metadata.set(meta);
         state.set(this.metaKey, meta);

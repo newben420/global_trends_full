@@ -1,7 +1,7 @@
 <app-header />
 <app-simple-hero [title]="'HOME.FOOTER.TERMS'" />
-<main class="mx-auto my-5 px-3 overflow-hidden container-md">
-    <p class="muted text-secondary">Last updated: August 13, 2025</p>
+<main class="mx-auto my-5 px-3 overflow-hidden opacity-75 container-md">
+    <p class="opacity-50">Last updated: August 13, 2025</p>
 
     <p>These Terms of Use (the “Terms”) govern your access to and use of <strong>{{metadata().brand}}</strong> and
         related websites,
@@ -15,7 +15,7 @@
             If you use the Service on behalf of an organization, you represent that you have authority to bind that
             organization to these Terms.</li>
         <li>By accessing the Service, creating an account, or using our APIs, you accept these Terms and our <a
-                class="text-decoration-none col-pri" href="/privacy-policy" rel="noopener">Privacy Policy</a>. If you do
+                class="text-decoration-none col-pri" routerLink="/privacy-policy" rel="noopener">Privacy Policy</a>. If you do
             not agree, do not use the Service.</li>
     </ul>
 
@@ -66,7 +66,7 @@
             publicly available material. We do not control third-party content and make no guarantees regarding its
             accuracy, availability, or legality.</li>
         <li><strong>Attribution.</strong> When required by your plan or output method, you must include conspicuous
-            attribution such as: <em>“Source: Emotis (live trends derived from publicly available news metadata)”</em>.
+            attribution such as: <em>“Source: {{metadata().brand}} (live trends derived from publicly available news metadata)”</em>.
             Additional or alternative attributions may be specified in your plan or API docs.</li>
         <li><strong>Your Content.</strong> If you submit feedback, suggestions, or other content to us, you grant us a
             worldwide, perpetual, irrevocable, transferable, sublicensable, royalty-free license to use, reproduce,
@@ -95,7 +95,7 @@
     </ul>
 
     <h2>9. Privacy</h2>
-    <p>Your use of the Service is also governed by our <a href="/privacy" rel="noopener">Privacy Policy</a>. You are
+    <p>Your use of the Service is also governed by our <a class="text-decoration-none col-pri"  routerLink="/privacy-policy" rel="noopener">Privacy Policy</a>. You are
         responsible for providing any necessary notices and obtaining any necessary consents for your end users.</p>
 
     <h2>10. Changes to the Service</h2>
@@ -165,21 +165,20 @@
 
     <h2>20. Governing Law & Dispute Resolution</h2>
     <ul>
-        <li>These Terms are governed by the laws of <strong>[Governing Law Jurisdiction]</strong>, excluding its
+        <li>These Terms are governed by the laws of <strong>Federal Republic of Nigeria</strong>, excluding its
             conflict of law rules.</li>
-        <li>Disputes will be resolved exclusively in the courts located in <strong>[Venue/City, Jurisdiction]</strong>,
+        <li>Disputes will be resolved exclusively in the courts located in the <strong>Federal Republic of  Nigeria</strong>,
             and you consent to their personal jurisdiction, except where applicable law provides otherwise.</li>
         <li>Before filing suit, the parties will attempt in good faith to resolve disputes via negotiation for at least
             30 days after written notice.</li>
     </ul>
 
     <h2>21. Contact</h2>
-    <p>Questions about these Terms? Contact us at <a href="mailto:[contact@email]">[contact@email]</a> or by mail at
-        <strong>[Postal Address]</strong>.
+    <p>Questions about these Terms? Contact us at <a class="text-decoration-none col-pri"  href="mailto:{{metadata().email}}">{{metadata().email}}</a>.
     </p>
 
     <hr />
-    <p class="muted">If any part of these Terms is held invalid or unenforceable, that portion will be construed to
+    <p class="opacity-50">If any part of these Terms is held invalid or unenforceable, that portion will be construed to
         reflect the parties’ original intent, and the remaining portions will remain in full force and effect. No waiver
         of any term will be deemed a further or continuing waiver of such term or any other term.</p>
 </main>

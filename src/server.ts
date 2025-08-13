@@ -111,6 +111,7 @@ app.use((req, res, next) => {
       year: (new Date()).getFullYear(),
       support: Site.SUPPORT_URL(),
       email: Site.SUPPORT_EMAIL(),
+      url: Site.URL(),
     })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),

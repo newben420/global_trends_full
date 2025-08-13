@@ -27,7 +27,7 @@
             <nav>
                 <mat-list role="list">
                     @for(country of countries(); track country.code; let i = $index){
-                    <a class="cp cout rounded {{country.isActive ? 'bg-surf' : ''}}" [activated]="country.isActive || false" href="/live/{{country.code | lowercase}}" mat-list-item
+                    <a class="cp cout rounded {{country.isActive ? 'bg-surf' : ''}}" [activated]="country.isActive || false" [routerLink]="'/live/'+(country.code | lowercase)" mat-list-item
                         role="listitem">
                         <span [innerHTML]="country.flag" class="me-2"></span> {{country.name}}
                     </a>

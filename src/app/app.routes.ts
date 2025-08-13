@@ -27,6 +27,7 @@ export const routes: Routes = [
             },
             {
                 path: ':code',
+                runGuardsAndResolvers: 'paramsChange',
                 canActivate: [countryAccessGuard],
                 canDeactivate: [countryLeaveGuard],
                 loadComponent: () => import('./dashboard/country-dashboard/country-dashboard').then(m => m.CountryDashboard),

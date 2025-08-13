@@ -1,6 +1,6 @@
 <div class="container-xxl m-0 p-0 my-3">
-    <h1 class="m-0 p-0 text-center text-md-start display-5 fw-light mt-5 mb-2" translate
-        [translateParams]="{country: ct.activeCountry().name, number: top()}">DASH.COUNTRY.TITLE</h1>
+    <h1 class="m-0 p-0 text-center text-md-start display-5 fw-light mt-5 mb-2">{{'DASH.COUNTRY.TITLE' |
+        translate:{country: ct.activeCountry().name, number: top()} }}</h1>
     @if(keywords().length > 0){
     <div class="table-container horizon w-100 overflow-auto">
         <table mat-table [dataSource]="uiKeys()" class="mytable">
@@ -10,13 +10,15 @@
 
             <!-- Position Column -->
             <ng-container matColumnDef="rank">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.RANK' | translate}} </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.RANK' |
+                    translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.rank}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="keyword">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.KEYWORD' | translate}} </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.KEYWORD' |
+                    translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     @if(element.delta != 0){
                     <i
@@ -28,7 +30,8 @@
 
             <!-- Weight Column -->
             <ng-container matColumnDef="tone">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.TONE' | translate}} </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.TONE' |
+                    translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     <span
                         class="d-inline-block text-light tiny-text text-nowrap tiny-text-xs p-2 py-1 rounded {{tone2colourClass(element.tone)}}">{{('TONE.'+tone2label(element.tone))
@@ -38,22 +41,27 @@
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="lastUpdated">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.LU' | translate}} </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.LU' | translate}}
+                </th>
                 <td mat-cell *matCellDef="let element"> {{"AGO" | translate: {time: GTE(element.lastUpdated, now())} }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="firstUpdated">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.DURATION' | translate}} </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.DURATION' |
+                    translate}} </th>
                 <td mat-cell *matCellDef="let element">{{GTE(element.firstUpdated, now())}}</td>
             </ng-container>
 
             <ng-container matColumnDef="categories">
-                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.CATS' | translate}} </th>
+                <th class="col-os opacity-50" mat-header-cell *matHeaderCellDef> {{'DASH.COUNTRY.TABLE.CATS' |
+                    translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     @for(category of element.categories; track category){
                     <!-- <span>{{category}}</span> -->
-                    <span class="d-inline-block tiny-text p-2 py-1 col-surf rounded bg-pri me-2 my-1">{{('CATEGORY.'+category) | translate}}</span>
+                    <span
+                        class="d-inline-block tiny-text p-2 py-1 col-surf rounded bg-pri me-2 my-1">{{('CATEGORY.'+category)
+                        | translate}}</span>
 
                     }
                 </td>
@@ -65,7 +73,15 @@
     </div>
     }
     @else {
-    <p class="m-0 my-3 py-5 px-md-2 px-3 fs-6 text-center text-md-start lead">{{'DASH.COUNTRY.NO_DATA' | translate:{country:
+    @if(loading()){
+        <div class="p-5 w-100 overflow-hidden d-flex flex-row align-items-center justify-content-center">
+            <mat-spinner mode="indeterminate" [diameter]="50"></mat-spinner>
+        </div>
+    }
+    @else {
+    <p class="m-0 my-3 py-5 px-md-2 px-3 fs-6 text-center text-md-start lead">{{'DASH.COUNTRY.NO_DATA' |
+        translate:{country:
         ct.activeCountry().name} }}</p>
+    }
     }
 </div>

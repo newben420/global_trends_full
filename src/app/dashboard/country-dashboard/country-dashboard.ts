@@ -1,4 +1,4 @@
-import { Component, computed, Inject, inject, makeStateKey, PLATFORM_ID, REQUEST_CONTEXT, signal, TransferState } from '@angular/core';
+import { Component, computed, effect, Inject, inject, makeStateKey, PLATFORM_ID, REQUEST_CONTEXT, signal, TransferState } from '@angular/core';
 import { Countries } from '../../services/countries';
 import { SharedModule } from '../../shared/shared-module';
 import { KeywordEntry } from '../../../../serve/model/theme2category';
@@ -22,6 +22,7 @@ import { Connected } from '../../services/connected';
 export class CountryDashboard {
   private request = inject(REQUEST_CONTEXT);
   subs: Record<string, Subscription> = {};
+  loading = signal<boolean>(false);
   GDT = getDateTime2;
   GTE = getTimeElapsed;
   now = signal<number>(0);
@@ -39,6 +40,10 @@ export class CountryDashboard {
   private serverTimeKey = makeStateKey<number>('server_time_ts');
   private topKey = makeStateKey<number>('top_ts');
   private keywordsKey = makeStateKey<KeywordEntry[]>('keywords_ts');
+  private navEff = effect(() => {
+    const c = this.ct.activeCountry();
+    this.updateKeywords();
+  });
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     public ct: Countries,
@@ -58,16 +63,16 @@ export class CountryDashboard {
       this.updateKeywords();
     }
     else if (isPlatformBrowser(this.platformId) && this.keywords().length <= 0) {
-      if(state.hasKey(this.serverTimeKey)){
+      if (state.hasKey(this.serverTimeKey)) {
         this.now.set(state.get(this.serverTimeKey, Date.now()));
       }
-      if(state.hasKey(this.topKey)){
+      if (state.hasKey(this.topKey)) {
         this.top.set(state.get(this.topKey, 5));
       }
-      if(state.hasKey(this.keywordsKey)){
+      if (state.hasKey(this.keywordsKey)) {
         this.keywords.set(state.get(this.keywordsKey, []));
       }
-      else{
+      else {
         this.updateKeywords();
       }
     }
@@ -76,8 +81,8 @@ export class CountryDashboard {
     });
 
     this.subs["data_update"] = this.socket.fromEvent('DATA_UPDATE').subscribe((codes: string[]) => {
-      if(codes.includes(this.ct.activeCountry().code)){
-        this.updateKeywords();
+      if (codes.includes(this.ct.activeCountry().code)) {
+        this.updateKeywords(false);
       }
     });
 
@@ -87,8 +92,12 @@ export class CountryDashboard {
     });
   }
 
-  updateKeywords() {
+  updateKeywords(rt: boolean = true) {
+    if (rt) {
+      this.loading.set(true);
+    }
     this.server.get(`trends/${this.ct.activeCountry().code.toLowerCase()}`, r => {
+      this.loading.set(false);
       if (r.succ) {
         this.keywords.set(r.message);
         if (isPlatformServer(this.platformId)) {
@@ -98,7 +107,7 @@ export class CountryDashboard {
     });
   }
 
-  timeUpdate:any =null;
+  timeUpdate: any = null;
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -108,8 +117,8 @@ export class CountryDashboard {
     }
   }
 
-  ngOnDestroy(){
-    if(this.timeUpdate){
+  ngOnDestroy() {
+    if (this.timeUpdate) {
       clearInterval(this.timeUpdate);
     }
     Object.keys(this.subs).forEach(x => {

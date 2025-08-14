@@ -1,12 +1,12 @@
 <mat-sidenav-container class="h-100 bg-surfx">
     <mat-sidenav
-        (click)="hideOnMoile()" class="rounded-0 {{windowWidth > widthBreakPoint ? '' : 'mobile sidenav-mobilexxx'}} overflow-x-hidden sidenav inner-side"
+        class="rounded-0 {{windowWidth > widthBreakPoint ? '' : 'mobile sidenav-mobilexxx'}} overflow-x-hidden sidenav inner-side"
         [style]="{width: windowWidth > widthBreakPoint ? '300px': 'calc(100vw - 100px)'}" (closed)="side.toggle(false)"
         [opened]="side.shown()" [mode]="windowWidth > widthBreakPoint ? 'side' : 'over'">
         <aside class="w-100 overflow-hidden p-3">
             <div class="p-0 d-flex opacity-75 flex0row align-items-center justify-content-start mb-3">
-                <app-theme-switch class="me-2"></app-theme-switch>
-                <app-locale-switch></app-locale-switch>
+                <app-theme-switch (click)="hideOnMoile()" class="me-2"></app-theme-switch>
+                <app-locale-switch (click)="hideOnMoile()"></app-locale-switch>
             </div>
             <div class="search">
                 <mat-form-field appearance="fill" class="w-100 custom-fill">
@@ -27,9 +27,11 @@
             <nav>
                 <mat-list role="list">
                     @for(country of countries(); track country.code; let i = $index){
-                    <a class="cp cout rounded {{country.isActive ? 'bg-surf' : ''}}" [activated]="country.isActive || false" [routerLink]="'/live/'+(country.code | lowercase)" mat-list-item
-                        role="listitem">
-                        <span [innerHTML]="country.flag" class="me-2"></span> {{country.name}}
+                    <a (click)="hideOnMoile()" class="cp cout rounded {{country.isActive ? 'bg-surf' : ''}}"
+                        [activated]="country.isActive || false" [routerLink]="'/live/'+(country.code | lowercase)"
+                        mat-list-item role="listitem">
+                        <span [innerHTML]="country.flag" class="me-2"></span> {{('COUNTRIES.' + (country.code |
+                        uppercase)) | translate}}
                     </a>
                     }
                 </mat-list>

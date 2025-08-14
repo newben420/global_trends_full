@@ -14,10 +14,10 @@ import { SocketEngine } from './socket';
 
 const SLUG = "MainEngine"; /* Engine name to be used n flow logs */
 const WEIGHT = 3; /* Weight to use in flow logs */
-const MAX_RECORDS = 5000; /* Max records that can be parsed from a CSV file */
-const MAX_PARSED_ITEMS = 1000; /* Max items(keywords/categories) that can be considered during update */
-const MAX_CATEGORIES = 5; /* Max categories per keyword that can be kept in trends */
-const MAX_KEYWORDS = 100; /* Max keywords per country that can be kept in trends */
+const MAX_RECORDS = Site.MAIN_MAX_RECORDS(); /* Max records that can be parsed from a CSV file */
+const MAX_PARSED_ITEMS = Site.MAIN_MAX_PARSED_ITEMS(); /* Max items(keywords/categories) that can be considered during update */
+const MAX_CATEGORIES = Site.MAIN_MAX_CATEGORIES(); /* Max categories per keyword that can be kept in trends */
+const MAX_KEYWORDS = Site.MAIN_MAX_KEYWORDS(); /* Max keywords per country that can be kept in trends */
 
 export class MainEngine {
 

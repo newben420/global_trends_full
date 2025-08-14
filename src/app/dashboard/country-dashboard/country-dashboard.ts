@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { Connected } from '../../services/connected';
 import { Locale } from '../../services/locale';
 import { SEO } from '../../services/seo';
+import { TranslateService } from '@ngx-translate/core';
+import { metaTrans } from '../../locales';
 
 @Component({
   selector: 'app-country-dashboard',
@@ -38,9 +40,7 @@ export class CountryDashboard {
     'firstUpdated',
     'categories',
   ]
-  top = signal<number>(5);
   private serverTimeKey = makeStateKey<number>('server_time_ts');
-  private topKey = makeStateKey<number>('top_ts');
   private keywordsKey = makeStateKey<KeywordEntry[]>('keywords_ts');
   metadata = signal<any>({});
   private metaKey = makeStateKey<any>('meta_ts');
@@ -64,8 +64,6 @@ export class CountryDashboard {
       this.state.set(this.serverTimeKey, Date.now());
       if (this.request && (this.request as any).top) {
         const val = (this.request as any).top
-        this.top.set(val);
-        state.set(this.topKey, val);
       }
       if (this.request) {
         const meta = {
@@ -84,9 +82,6 @@ export class CountryDashboard {
     else if (isPlatformBrowser(this.platformId) && this.keywords().length <= 0) {
       if (state.hasKey(this.serverTimeKey)) {
         this.now.set(state.get(this.serverTimeKey, Date.now()));
-      }
-      if (state.hasKey(this.topKey)) {
-        this.top.set(state.get(this.topKey, 5));
       }
       if (state.hasKey(this.metaKey)) {
         this.metadata.set(state.get(this.metaKey, {}));
@@ -126,6 +121,9 @@ export class CountryDashboard {
         this.keywords.set(r.message);
         if (isPlatformServer(this.platformId)) {
           this.state.set(this.keywordsKey, r.message);
+        }
+        if (r.extra.time) {
+          this.now.set(r.extra.time);
         }
       }
     });
@@ -194,42 +192,41 @@ export class CountryDashboard {
     const url = this.metadata().url + `/live/${this.ct.activeCountry().code.toLowerCase()}`;
     const image = `${this.metadata().url}/img/banner.png`;
     const logo = `${this.metadata().url}/img/icon.webp`;
-    const country = this.ct.activeCountry().name;
-    this.locale.waiter([
-      "META.COUNTRY.TITLE",
-      "META.COUNTRY.DESC",
-      "META.COUNTRY.KEYWORDS",
+    const [country] = metaTrans(this.locale.lang(), [`COUNTRIES.${this.ct.activeCountry().code}`,], [{}]);
+    const [title, desc, keywords] = metaTrans(this.locale.lang(), [
+      "COUNTRY.TITLE",
+      "COUNTRY.DESC",
+      "COUNTRY.KEYWORDS",
     ], [
       { brand, country },
       { brand, country },
       { brand, country },
-    ]).then(([title, desc, keywords]) => {
-      this.seo.run({
-        title,
-        desc,
-        author: brand,
-        keywords,
-        canonical: url,
-        url,
-        image,
-        schema: {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "url": url,
+    ]);
+    this.seo.run({
+      title,
+      desc,
+      author: brand,
+      keywords,
+      canonical: url,
+      url,
+      image,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": url,
+        "name": brand,
+        "description": title,
+        "image": image,
+        "keywords": keywords,
+        "publisher": {
+          "@type": "Organization",
           "name": brand,
-          "description": title,
-          "image": image,
-          "keywords": keywords,
-          "publisher": {
-            "@type": "Organization",
-            "name": brand,
-            "logo": {
-              "@type": "ImageObject",
-              "url": logo,
-            }
+          "logo": {
+            "@type": "ImageObject",
+            "url": logo,
           }
         }
-      });
+      }
     });
   }
 }

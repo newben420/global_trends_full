@@ -7,6 +7,7 @@ import { Footer } from "../partials/footer/footer";
 import { Locale } from '../services/locale';
 import { Meta, Title } from '@angular/platform-browser';
 import { SEO } from '../services/seo';
+import { metaTrans } from '../locales';
 
 @Component({
   selector: 'app-home',
@@ -56,41 +57,40 @@ export class Home {
     const url = this.metadata().url;
     const image = `${this.metadata().url}/img/banner.png`;
     const logo = `${this.metadata().url}/img/icon.webp`;
-    this.locale.waiter([
-      "META.HOME.TITLE",
-      "META.HOME.DESC",
-      "META.HOME.KEYWORDS",
+    const [title, desc, keywords] = metaTrans(this.locale.lang(), [
+      "HOME.TITLE",
+      "HOME.DESC",
+      "HOME.KEYWORDS",
     ], [
       { brand },
       { brand },
       { brand },
-    ]).then(([title, desc, keywords]) => {
-      this.seo.run({
-        title,
-        desc,
-        author: brand,
-        keywords,
-        canonical: url,
-        url,
-        image,
-        schema: {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "url": url,
+    ]);
+    this.seo.run({
+      title,
+      desc,
+      author: brand,
+      keywords,
+      canonical: url,
+      url,
+      image,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": url,
+        "name": brand,
+        "description": title,
+        "image": image,
+        "keywords": keywords,
+        "publisher": {
+          "@type": "Organization",
           "name": brand,
-          "description": title,
-          "image": image,
-          "keywords": keywords,
-          "publisher": {
-            "@type": "Organization",
-            "name": brand,
-            "logo": {
-              "@type": "ImageObject",
-              "url": logo,
-            }
+          "logo": {
+            "@type": "ImageObject",
+            "url": logo,
           }
         }
-      });
+      }
     });
   }
 }

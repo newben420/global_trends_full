@@ -37,6 +37,10 @@ export class Locale {
     }
   }
 
+  lang(){
+    return this.store.getSync('locale') || LOCALES[0];
+  }
+
   updateLocale(code: string = LOCALES[0]) {
     if (this.isServer && this.document) {
       this.document.documentElement.lang = code;

@@ -19,6 +19,10 @@ export class Site {
     static MAIN_USE = () => (process.env["MAIN_USE"] || "").toLowerCase() == "true";
     static MAIN_LOCAL_ABS_PATH_GKG = () => process.env["MAIN_LOCAL_ABS_PATH_GKG"] || "";
     static MAIN_LOCAL_ABS_PATH_EXPORT = () => process.env["MAIN_LOCAL_ABS_PATH_EXPORT"] || "";
+    static MAIN_MAX_RECORDS = () => parseInt(process.env["MAIN_MAX_RECORDS"] || "0") || 5000;
+    static MAIN_MAX_PARSED_ITEMS = () => parseInt(process.env["MAIN_MAX_PARSED_ITEMS"] || "0") || 1000;
+    static MAIN_MAX_CATEGORIES = () => parseInt(process.env["MAIN_MAX_CATEGORIES"] || "0") || 5;
+    static MAIN_MAX_KEYWORDS = () => parseInt(process.env["MAIN_MAX_KEYWORDS"] || "0") || 100;
 
 
     static KEYWORD_SOFT_EXPIRE_MS = () => parseInt(process.env["KEYWORD_SOFT_EXPIRE_MS"] || "0") || 3600000;

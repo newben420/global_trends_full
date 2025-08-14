@@ -9,8 +9,19 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { timeoutInterceptor } from './interceptors/timeout.interceptor';
 import { LOCALES } from './locales';
 import { SocketIoConfig, provideSocketIo } from 'ngx-socket-io';
+import { Store } from './services/store';
 
 const config: SocketIoConfig = { url: '/', options: {} };
+
+function initTranslations() {
+  const store = inject(Store);
+  const translate = inject(TranslateService);
+  return store.get('locale').then(r => {
+    if(r){
+      translate.use(r);
+    }
+  })
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withInMemoryScrolling(routerOptions)), 
     provideClientHydration(withEventReplay()),
     provideHttpClient(withInterceptors([timeoutInterceptor]), withFetch()),
+    provideAppInitializer(initTranslations),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: '/i18n/',

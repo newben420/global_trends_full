@@ -85,6 +85,23 @@ export class Store {
     });
   }
 
+  getSync(key: string) {
+    if (this.isStorage()) {
+      let item = localStorage.getItem(key);
+      if (item) {
+        return item;
+      }
+    }
+    if (this.request) {
+      const val = ((this.request as any).cookies || {})[key];
+      if (val) {
+        return val;
+        return
+      }
+    }
+    return null;
+  }
+
   set(key: string, value: string) {
     return new Promise<boolean>(async (resolve, reject) => {
       const done = [false, false];
@@ -95,7 +112,7 @@ export class Store {
         }
       }
 
-      done[1] = (await this.server.postAsync("cookie", {name: key, value})).succ;
+      done[1] = (await this.server.postAsync("cookie", { name: key, value })).succ;
 
       resolve(done[0] || done[1]);
     })
@@ -106,7 +123,7 @@ export class Store {
       if (this.isStorage()) {
         localStorage.removeItem(key);
       }
-      (await this.server.postAsync("cookie/delete", {name: key}));
+      (await this.server.postAsync("cookie/delete", { name: key }));
       resolve(true);
       return;
     });

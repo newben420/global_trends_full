@@ -6,6 +6,7 @@ import { CommonModule, isPlatformBrowser, isPlatformServer } from '@angular/comm
 import { SharedModule } from '../shared/shared-module';
 import { SEO } from '../services/seo';
 import { Locale } from '../services/locale';
+import { metaTrans } from '../locales';
 
 @Component({
   selector: 'app-terms',
@@ -56,34 +57,33 @@ export class Terms {
     const url = this.metadata().url + '/terms-of-use';
     const image = `${this.metadata().url}/img/banner.png`;
     const logo = `${this.metadata().url}/img/icon.webp`;
-    this.locale.waiter([
-      "META.TERMS.TITLE",
-      "META.TERMS.DESC",
-      "META.TERMS.KEYWORDS",
+    const [title, desc, keywords] = metaTrans(this.locale.lang(), [
+      "TERMS.TITLE",
+      "TERMS.DESC",
+      "TERMS.KEYWORDS",
     ], [
       { brand },
       { brand },
       { brand },
-    ]).then(([title, desc, keywords]) => {
-      this.seo.run({
-        title,
-        desc,
-        keywords,
-        canonical: url,
-        author: brand,
-        url,
-        image,
-        schema: {
-          "@context": "https://schema.org",
-          "@type": "TermsOfService",
-          "name": title,
-          "url": url,
-          "publisher": {
-            "@type": "Organization",
-            "name": brand,
-          }
+    ]);
+    this.seo.run({
+      title,
+      desc,
+      keywords,
+      canonical: url,
+      author: brand,
+      url,
+      image,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "TermsOfService",
+        "name": title,
+        "url": url,
+        "publisher": {
+          "@type": "Organization",
+          "name": brand,
         }
-      });
+      }
     });
   }
 }

@@ -6,6 +6,7 @@ import { SimpleHero } from '../partials/simple-hero/simple-hero';
 import { SharedModule } from '../shared/shared-module';
 import { Locale } from '../services/locale';
 import { SEO } from '../services/seo';
+import { metaTrans } from '../locales';
 
 @Component({
   selector: 'app-privacy',
@@ -56,34 +57,33 @@ export class Privacy {
     const url = this.metadata().url + '/privacy-policy';
     const image = `${this.metadata().url}/img/banner.png`;
     const logo = `${this.metadata().url}/img/icon.webp`;
-    this.locale.waiter([
-      "META.POLICY.TITLE",
-      "META.POLICY.DESC",
-      "META.POLICY.KEYWORDS",
+    const [title, desc, keywords] = metaTrans(this.locale.lang(), [
+      "POLICY.TITLE",
+      "POLICY.DESC",
+      "POLICY.KEYWORDS",
     ], [
       { brand },
       { brand },
       { brand },
-    ]).then(([title, desc, keywords]) => {
-      this.seo.run({
-        title,
-        desc,
-        keywords,
-        canonical: url,
-        author: brand,
-        url,
-        image,
-        schema: {
-          "@context": "https://schema.org",
-          "@type": "PrivacyPolicy",
-          "name": title,
-          "url": url,
-          "publisher": {
-            "@type": "Organization",
-            "name": brand,
-          }
+    ]);
+    this.seo.run({
+      title,
+      desc,
+      keywords,
+      canonical: url,
+      author: brand,
+      url,
+      image,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "PrivacyPolicy",
+        "name": title,
+        "url": url,
+        "publisher": {
+          "@type": "Organization",
+          "name": brand,
         }
-      });
+      }
     });
   }
 }

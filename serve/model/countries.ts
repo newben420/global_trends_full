@@ -69,7 +69,7 @@ export const countryCodesMap: Record<string, string> = {
     "CO": "Colombia",
     "KM": "Comoros",
     "CG": "Congo",
-    "CD": "Congo, Democratic Republic of the",
+    "CD": "Democratic Republic of Congo",
     "CK": "Cook Islands",
     "CR": "Costa Rica",
     "CI": "Côte d'Ivoire",

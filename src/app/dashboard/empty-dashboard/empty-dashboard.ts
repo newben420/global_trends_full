@@ -4,6 +4,7 @@ import { Dashside } from '../../services/dashside';
 import { Locale } from '../../services/locale';
 import { SEO } from '../../services/seo';
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
+import { metaTrans } from '../../locales';
 
 @Component({
   selector: 'app-empty-dashboard',
@@ -23,7 +24,7 @@ export class EmptyDashboard {
     private state: TransferState,
     private locale: Locale,
     private seo: SEO,
-  ){
+  ) {
     if (isPlatformServer(this.platformId)) {
       if (this.request) {
         const meta = {
@@ -51,41 +52,40 @@ export class EmptyDashboard {
     const url = this.metadata().url + `/live`;
     const image = `${this.metadata().url}/img/banner.png`;
     const logo = `${this.metadata().url}/img/icon.webp`;
-    this.locale.waiter([
-      "META.LIVE.TITLE",
-      "META.LIVE.DESC",
-      "META.HOME.KEYWORDS",
+    const [title, desc, keywords] = metaTrans(this.locale.lang(), [
+      "LIVE.TITLE",
+      "LIVE.DESC",
+      "HOME.KEYWORDS",
     ], [
       { brand },
       { brand },
       { brand },
-    ]).then(([title, desc, keywords]) => {
-      this.seo.run({
-        title,
-        desc,
-        author: brand,
-        keywords,
-        canonical: url,
-        url,
-        image,
-        schema: {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "url": url,
+    ]);
+    this.seo.run({
+      title,
+      desc,
+      author: brand,
+      keywords,
+      canonical: url,
+      url,
+      image,
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": url,
+        "name": brand,
+        "description": title,
+        "image": image,
+        "keywords": keywords,
+        "publisher": {
+          "@type": "Organization",
           "name": brand,
-          "description": title,
-          "image": image,
-          "keywords": keywords,
-          "publisher": {
-            "@type": "Organization",
-            "name": brand,
-            "logo": {
-              "@type": "ImageObject",
-              "url": logo,
-            }
+          "logo": {
+            "@type": "ImageObject",
+            "url": logo,
           }
         }
-      });
+      }
     });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Locale } from '../../services/locale';
-import { LOCALE_FLAGS } from '../../locales';
+import { LOCALE_FLAGS, LOCALES } from '../../locales';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,7 +18,7 @@ export class LocalePicker {
     private locale: TranslateService,
     public loc: Locale,
   ) {
-    this.locales.set(locale.getLangs().map(x => ({ code: x, flag: LOCALE_FLAGS[x] })));
+    this.locales.set(LOCALES.map(x => ({ code: x, flag: LOCALE_FLAGS[x] })));
     this.langs = this.locale.onLangChange.subscribe(x => {
       this.lang.set(x.lang);
     });

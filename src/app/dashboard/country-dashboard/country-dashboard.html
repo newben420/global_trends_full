@@ -1,6 +1,6 @@
 <div class="container-xxl m-0 p-0 my-3">
     <h1 class="m-0 p-0 text-center text-md-start display-5 fw-light mt-5 mb-2">{{'DASH.COUNTRY.TITLE' |
-        translate:{country: ct.activeCountry().name, number: top()} }}</h1>
+        translate:{country: (('COUNTRIES.' + ct.activeCountry().code) | translate), number: metadata().top} }}</h1>
     @if(keywords().length > 0){
     <div class="table-container horizon w-100 overflow-auto">
         <table mat-table [dataSource]="uiKeys()" class="mytable">

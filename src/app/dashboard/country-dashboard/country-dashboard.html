@@ -1,5 +1,5 @@
 <div class="container-xxl m-0 p-0 my-3">
-    <h1 class="m-0 p-0 text-center text-md-start display-5 fw-light mt-5 mb-2">{{'DASH.COUNTRY.TITLE' |
+    <h1 class="m-0 p-0 text-center display-5 fw-light mt-5 mb-2">{{'DASH.COUNTRY.TITLE' |
         translate:{country: (('COUNTRIES.' + ct.activeCountry().code) | translate), number: metadata().top} }}</h1>
     @if(keywords().length > 0){
     <div class="table-container horizon w-100 overflow-auto">
@@ -79,7 +79,7 @@
         </div>
     }
     @else {
-    <p class="m-0 my-3 py-5 px-md-2 px-3 fs-6 text-center text-md-start lead">{{'DASH.COUNTRY.NO_DATA' |
+    <p class="m-0 my-3 py-5 px-md-2 px-3 fs-6 text-center lead">{{'DASH.COUNTRY.NO_DATA' |
         translate:{country:
         ct.activeCountry().name} }}</p>
     }

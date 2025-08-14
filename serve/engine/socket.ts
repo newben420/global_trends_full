@@ -5,7 +5,6 @@ export class SocketEngine {
     private static io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
 
     static initialize = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
-        console.log('socket initialized');
         SocketEngine.io = io;
         SocketEngine.runOnce();
     }

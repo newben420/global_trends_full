@@ -1,8 +1,8 @@
-# Global Trends (Emotis)
+# Global Trends (GloTrends)
 
-Emotis is a fully automated public dashboard that tracks and ranks live global trending keywords/entities, with their sentiments and topics in real-time, by country.
+GloTrends is a fully automated public dashboard that tracks and ranks live global trending keywords/entities, with their sentiments and topics in real-time, by country.
 
-Access it at [emotis.online](https://emotis.online).
+Access it at [glotrends.online](https://glotrends.online).
 
 ---
 
@@ -14,7 +14,7 @@ Access it at [emotis.online](https://emotis.online).
 
 3. Every new data is smartly aggregated to the `trend` object and maintained.
 
-4. Due to GDELT not specifically mentioning countries directly related to the events we extract keywords from, Emotis finds these countries from the following sources, respectively:
+4. Due to GDELT not specifically mentioning countries directly related to the events we extract keywords from, GloTrends finds these countries from the following sources, respectively:
 
    - The source domain of the event's article (e.g. `something.com.countryCode`).
 
@@ -24,7 +24,7 @@ Access it at [emotis.online](https://emotis.online).
 
    - The first mentioned country in the event's article.
 
-5. Emotis uses Angular SSR with Socket.IO to maintain a real-time country-wise dashboard, and other related web pages, with support for localization (8 languges at the time of writing), theming (light/dark), S.E.O, and schema.
+5. GloTrends uses Angular SSR with Socket.IO to maintain a real-time country-wise dashboard, and other related web pages, with support for localization (8 languges at the time of writing), theming (light/dark), S.E.O, and schema.
 
 ---
 
@@ -89,7 +89,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 
 ## Roadmap
 
-Future enhancements to Emotis include:
+Future enhancements to GloTrends include:
 
 1. An LLM layer for deduplicating keywords referring to sngle entities, and automatically translating them to all added languages, with support for caching since this would be resource-intensive.
 

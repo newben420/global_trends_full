@@ -1,7 +1,8 @@
+import { SupaEngine } from './supabase';
 import { MainEngine } from "./main";
 
 export const startEngine = () => new Promise<boolean>(async (resolve, reject) => {
-    const loaded = (await MainEngine.start());
+    const loaded = (await SupaEngine.start()) && (await MainEngine.start());
     resolve(loaded);
 });
 

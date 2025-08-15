@@ -42,4 +42,8 @@ export class Site {
     static SUPPORT_URL = () => process.env["SUPPORT_URL"] || "";
     static SUPPORT_EMAIL = () => process.env["SUPPORT_EMAIL"] || "";
 
+    static SUPA_USE = () => (process.env["SUPA_USE"] || "").toLowerCase() == "true";
+    static SUPA_URL = () => process.env["SUPA_URL"] || "";
+    static SUPA_KEY = () => process.env["SUPA_KEY"] || "";
+    static SUPA_BUCKET = () => process.env["SUPA_BUCKET"] || "gt_default";
 }

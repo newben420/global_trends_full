@@ -73,3 +73,14 @@
 .user:hover .icc i {
     color: #e0e0e0; /* light metallic shine */
 }
+
+
+@media only screen and (max-width: 768px) {
+    .hiwb:hover {
+        transform: translateY(0px) scale(1) !important;
+    }
+    
+    .user:hover .icc {
+        transform: scale(1) rotate(0deg) !important;
+    }
+}

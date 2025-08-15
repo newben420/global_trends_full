@@ -11,6 +11,7 @@ import { transform } from 'stream-transform';
 import { Writable } from 'stream';
 import { createReadStream, ReadStream } from 'fs';
 import { SocketEngine } from './socket';
+import { SupaEngine } from './supabase';
 
 const SLUG = "MainEngine"; /* Engine name to be used n flow logs */
 const WEIGHT = 3; /* Weight to use in flow logs */
@@ -25,9 +26,13 @@ export class MainEngine {
 
     private static running: boolean = false;
 
-    static start = () => new Promise<boolean>((resolve, reject) => {
+    static start = () => new Promise<boolean>(async (resolve, reject) => {
         for (const cc of countryCodes) {
             MainEngine.trends[cc] = [];
+        }
+        const backup = await SupaEngine.restoreBackup();
+        if(backup){
+            MainEngine.trends = backup;
         }
         if (Site.MAIN_USE()) {
             setTimeout(() => {
@@ -277,6 +282,7 @@ export class MainEngine {
         }
 
         if(codes.length > 0){
+            SupaEngine.saveBackup(MainEngine.trends);
             SocketEngine.broadcastUPDATE(codes);
         }
     }

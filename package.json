@@ -36,6 +36,7 @@
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@popperjs/core": "^2.11.8",
+    "@supabase/supabase-js": "^2.55.0",
     "aos": "^2.3.4",
     "axios": "^1.11.0",
     "body-parser": "^2.2.0",

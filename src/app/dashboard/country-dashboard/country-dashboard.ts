@@ -48,6 +48,12 @@ export class CountryDashboard {
     const c = this.ct.activeCountry();
     this.updateKeywords();
     this.doMeta();
+    if(isPlatformBrowser(this.platformId) && document){
+      const el = document.querySelector('mat-sidenav-content.mat-sidenav-content');
+      if(el){
+        el.scrollTo(0, 0);
+      }
+    }
   });
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
